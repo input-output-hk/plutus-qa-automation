@@ -1,4 +1,4 @@
-# mantis-cardano-qa-automation
+# plutus-qa-automation
 
 ## Synopsis
 
