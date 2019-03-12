@@ -1,0 +1,12 @@
+# /
+/**/*.metadata
+/**/.project
+/**/.settings
+/**/.idea
+/**/*.iml
+/**/target
+/**/test-output
+/**/.classpath
+/**/robots.txt
+/**/screenshots
+/**/logs

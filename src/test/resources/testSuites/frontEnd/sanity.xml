@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="sanity">
+    <listeners>
+        <listener class-name="io.iohk.utils.listeners.AnnotationTransformer"/>
+        <listener class-name="io.iohk.utils.listeners.ScreenshotListener"/>
+        <listener class-name="io.iohk.utils.listeners.TestListener"/>
+    </listeners>
+
+    <test name="frontend">
+        <classes>
+            <class name="io.iohk.frontEndTests.OtherTests.DefaultContractOptionsTest" />
+            <class name="io.iohk.frontEndTests.OtherTests.HeaderLinksTest" />
+        </classes>
+    </test>
+
+</suite>
