@@ -14,7 +14,7 @@ import static io.iohk.utils.DriverManager.getWebDriver;
 
 
 public class BasePage {
-	public WebDriver driver;
+	protected WebDriver driver;
 
 	protected static final int DEFAULT_WAIT_ELEMENT_TIMEOUT = 5;
 	protected static final int DEFAULT_WAIT_PAGE_TIMEOUT = 30;
@@ -86,7 +86,7 @@ public class BasePage {
 	}
 
 	/** Method to wait for the value of a webelement to change to the desired expectedTextValue	 */
-	public void waitForElementToHaveSpecificValue(WebElement webElement, String expectedTextValue, int timeoutSeconds) {
+	protected void waitForElementToHaveSpecificValue(WebElement webElement, String expectedTextValue, int timeoutSeconds) {
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
 				.withTimeout(timeoutSeconds, TimeUnit.SECONDS)
 				.pollingEvery(1, TimeUnit.SECONDS)
@@ -110,13 +110,13 @@ public class BasePage {
 	}
 
 	/** Method to get the text attribute of a webelement	 */
-	public String getTextFieldValue(WebElement webElement) {
+	protected String getTextFieldValue(WebElement webElement) {
 		waitForElementToBeVisible(webElement, DEFAULT_WAIT_ELEMENT_TIMEOUT);
 		return webElement.getText();
 	}
 
 	/** Method to get the value attribute of a webelement	 */
-	public String getValueAttrValue(WebElement webElement) {
+	protected String getValueAttrValue(WebElement webElement) {
 		waitForElementToBeVisible(webElement, DEFAULT_WAIT_ELEMENT_TIMEOUT);
 		return webElement.getAttribute("value");
 	}
@@ -284,7 +284,7 @@ public class BasePage {
 	}
 
 	/** Method to open url in new tab	 */
-	public void openLinkInNewTab(WebElement link) {
+	protected void openLinkInNewTab(WebElement link) {
 		new Actions(driver)
 				.keyDown(Keys.CONTROL)
 				.keyDown(Keys.SHIFT)

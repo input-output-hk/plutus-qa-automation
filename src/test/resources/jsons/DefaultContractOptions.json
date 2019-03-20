@@ -1,0 +1,83 @@
+{
+  "crowdfunding": {
+    "action_functions": {
+      "scheduleCollection": [
+        "campaignDeadline",
+        "campaignTarget",
+        "campaignCollectionDeadline",
+        "campaignOwner"
+      ],
+      "contribute": [
+        "campaignDeadline",
+        "campaignTarget",
+        "campaignCollectionDeadline",
+        "campaignOwner",
+        "getValue"
+      ],
+      "payToPublicKey_": [
+        "getValue",
+        "getPubKey"
+      ]
+	}
+  },
+  "game": {
+    "action_functions": {
+      "lock": [
+        "string",
+        "getValue"
+      ],
+      "guess": [
+        "string"
+      ],
+      "startGame": [],
+      "payToPublicKey_": [
+        "getValue",
+        "getPubKey"
+      ]
+    }
+  },
+  "messages": {
+    "action_functions": {
+      "logAMessage": [],
+      "submitInvalidTxn": [],
+      "throwWalletAPIError": [
+        "string"
+      ],
+      "payToPublicKey_": [
+        "getValue",
+        "getPubKey"
+      ]
+    }
+  },
+  "vesting": {
+    "action_functions": {
+      "vestFunds": {
+          "vestingTranche1": [
+            "vestingTrancheDate",
+            "vestingTrancheAmount"
+          ],
+        "vestingTranche2": [
+          "vestingTrancheDate",
+          "vestingTrancheAmount"
+        ],
+        "vestingOwner": [],
+        "getValue": []
+      },
+      "registerVestingOwner": {
+        "vestingTranche1": [
+          "vestingTrancheDate",
+          "vestingTrancheAmount"
+        ],
+        "vestingTranche2": [
+          "vestingTrancheDate",
+          "vestingTrancheAmount"
+        ],
+        "vestingOwner": []
+      },
+      "payToPublicKey_": [
+        "getValue",
+        "getPubKey"
+      ]
+    }
+  }
+}

@@ -87,7 +87,7 @@ public class EditorPage extends BasePage {
     public void waitContractCompileSuccess() {
         Log.info("Waiting for the smart contract to be compiled...");
         waitForElementToBeVisible(btnCompileSuccess, DEFAULT_WAIT_ELEMENT_TIMEOUT);
-        Assert.assertTrue(getCompileStatus());
+        Assert.assertTrue(getCompileStatus(), "Error: Compile action was not successful.");
     }
 
     private boolean getCompileStatus() {

@@ -15,6 +15,11 @@ import java.util.List;
 @Listeners({ScreenshotListener.class, TestListener.class, AnnotationTransformer.class})
 public class DefaultContractOptionsTest extends GeneralMethods {
 
+    @BeforeClass
+    public void checkTabValues() {
+        checkDefaultTabValues();
+    }
+
     @DataProvider
     public Object[][] SmartContracts()  {
         List<Enums.SmartContract> enumValues = Arrays.asList(Enums.SmartContract.values());
@@ -31,15 +36,16 @@ public class DefaultContractOptionsTest extends GeneralMethods {
     }
 
     @Test(dataProvider = "SmartContracts")
-    public void checkDefaultContractOptions(Enums.SmartContract smartContract) {
+    public void checkDefaultContractOptions(Enums.SmartContract smartContract) throws Exception {
         // Test steps:
         //      1. Open Plutus Playground UI
-        //      2. Compile each Demo smart contract and check that the correct Wallet values are created
-        //      3. Evaluate each smart contract (using the default values)
-        
+        //      2. Check the default messages displayed on the Simulation and Transaction page
+        //      3. Compile each Demo smart contract and check that:
+        //          3.1 the correct Wallet values are created
+        //          3.2 the correct Actions are created for each Wallet function
+
         compileSpecificSmartContract(smartContract);
         checkDefaultContractValues(smartContract);
-        evaluateSimulation();
     }
 
     @AfterMethod

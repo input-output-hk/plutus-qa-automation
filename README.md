@@ -15,7 +15,7 @@ Technologies used: Java, TestNG, Selenium, Maven, Log4j.
 
 - **_General considerations_**:
     - All the screenshots for the last run can be found in "**screenshots**" directory. Screenshots are taken for all failed Tests.
-    - There is also a more visual HTML report that can be found inside "**ExtentReports**" directory.
+    - There is also a more visual HTML report that can be found inside "**ExtentHtmlReports**" directory.
     - All the script logs for the last run can be found in "**logs**" directory.
     
 - **_Running Scripts using MAVEN_**
