@@ -1,0 +1,267 @@
+{
+  "vesting":  {
+    "simulations": [
+      {
+        "title": "Simulation #1",
+        "wallets": [
+          {
+            "title": "Wallet #1",
+            "currency": "ADA",
+            "balance": 11,
+            "availableFunctions": [
+              "vestFunds",
+              "registerVestingScheme",
+              "withdraw",
+              "payToPublicKey_"
+            ],
+            "actions": [
+              {
+                "title": "vestFunds",
+                "parameters": {
+                  "vestingOwner": {
+                    "value": 1,
+                    "type": "basic"
+                  },
+                  "vestingTranche2": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "vestingTrancheAmount": 1,
+                        "vestingTrancheDate": 2
+                      }
+                    ]
+                  },
+                  "vestingTranche1": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "vestingTrancheAmount": 3,
+                        "vestingTrancheDate": 4
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "title": "registerVestingScheme",
+                "parameters": {
+                  "vestingOwner": {
+                    "value": 2,
+                    "type": "basic"
+                  },
+                  "vestingTranche2": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "vestingTrancheAmount": 5,
+                        "vestingTrancheDate": 6
+                      }
+                    ]
+                  },
+                  "vestingTranche1": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "vestingTrancheAmount": 7,
+                        "vestingTrancheDate": 8
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "title": "withdraw",
+                "parameters": {
+                  "vestingOwner": {
+                    "value": 9,
+                    "type": "basic"
+                  },
+                  "vestingTranche2": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "vestingTrancheAmount": 10,
+                        "vestingTrancheDate": 11
+                      }
+                    ]
+                  },
+                  "vestingTranche1": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "vestingTrancheAmount": 12,
+                        "vestingTrancheDate": 13
+                      }
+                    ]
+                  },
+                  "getAda": {
+                    "value": 14,
+                    "type": "basic"
+                  }
+                }
+              },
+              {
+                "title": "payToPublicKey_",
+                "parameters": {
+                  "ivTo": {
+                    "value": 15,
+                    "type": "basic"
+                  },
+                  "ivFrom": {
+                    "value": 16,
+                    "type": "basic"
+                  },
+                  "getValue": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "int1": 17,
+                        "int2": 18
+                      },
+                      {
+                        "int1": 19,
+                        "int2": 20
+                      }
+                    ]
+                  },
+                  "getPubKey": {
+                    "value": 21,
+                    "type": "basic"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "title": "Wallet #2",
+            "currency": "ADA",
+            "balance": 4,
+            "availableFunctions": [
+              "vestFunds",
+              "registerVestingScheme",
+              "withdraw",
+              "payToPublicKey_"
+            ],
+            "actions": [
+              {
+                "title": "vestFunds",
+                "parameters": {
+                  "vestingOwner": {
+                    "value": 1,
+                    "type": "basic"
+                  },
+                  "vestingTranche2": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "vestingTrancheAmount": 2,
+                        "vestingTrancheDate": 3
+                      }
+                    ]
+                  },
+                  "vestingTranche1": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "vestingTrancheAmount": 4,
+                        "vestingTrancheDate": 5
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "title": "registerVestingScheme",
+                "parameters": {
+                  "vestingOwner": {
+                    "value": 6,
+                    "type": "basic"
+                  },
+                  "vestingTranche2": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "vestingTrancheAmount": 7,
+                        "vestingTrancheDate": 8
+                      }
+                    ]
+                  },
+                  "vestingTranche1": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "vestingTrancheAmount": 9,
+                        "vestingTrancheDate": 10
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "title": "withdraw",
+                "parameters": {
+                  "vestingOwner": {
+                    "value": 11,
+                    "type": "basic"
+                  },
+                  "vestingTranche2": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "vestingTrancheAmount": 12,
+                        "vestingTrancheDate": 13
+                      }
+                    ]
+                  },
+                  "vestingTranche1": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "vestingTrancheAmount": 14,
+                        "vestingTrancheDate": 15
+                      }
+                    ]
+                  },
+                  "getAda": {
+                    "value": 16,
+                    "type": "basic"
+                  }
+                }
+              },
+              {
+                "title": "payToPublicKey_",
+                "parameters": {
+                  "ivTo": {
+                    "value": 17,
+                    "type": "basic"
+                  },
+                  "ivFrom": {
+                    "value": 18,
+                    "type": "basic"
+                  },
+                  "getValue": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "int1": 19,
+                        "int2": 20
+                      },
+                      {
+                        "int1": 21,
+                        "int2": 22
+                      }
+                    ]
+                  },
+                  "getPubKey": {
+                    "value": 23,
+                    "type": "basic"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

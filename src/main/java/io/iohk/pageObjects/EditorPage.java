@@ -85,13 +85,13 @@ public class EditorPage extends BasePage {
     }
 
     public void waitContractCompileSuccess() {
-        Log.info("Waiting for the smart contract to be compiled...");
+        Log.info("  - Waiting for the smart contract to be compiled...");
         waitForElementToBeVisible(btnCompileSuccess, DEFAULT_WAIT_ELEMENT_TIMEOUT);
         Assert.assertTrue(getCompileStatus(), "Error: Compile action was not successful.");
     }
 
     private boolean getCompileStatus() {
-        Log.info("Getting the smart contract's compile status...");
+        Log.info("  - Getting the smart contract's compile status...");
         waitForElementToBeVisible(btnCompileSuccess, DEFAULT_WAIT_ELEMENT_TIMEOUT);
         if (checkIfWebElementIsDisplayed(btnCompileSuccess)) {
             return true;

@@ -18,6 +18,18 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//a[contains(text(),'Privacy')]")
     private WebElement btnPrivacy;
 
+    @FindBy(xpath = "//a[@id='publish-gist']")
+    private WebElement btnGithubLogin;
+
+    @FindBy(xpath = "//button[@id='publish-gist']")
+    private WebElement btnPublishGist;
+
+    @FindBy(xpath = "//button[@id='load-gist']")
+    private WebElement btnLoadGist;
+
+    @FindBy(xpath = "//div[@class='gist-controls']//input")
+    private WebElement txtLoadGist;
+
     @FindBy(xpath = "//a[@id='tab-editor']")
     private WebElement btnEditor;
 
@@ -63,6 +75,22 @@ public class MainPage extends BasePage {
 
     public void openPrivacyLinkInNewTab() {
         openLinkInNewTab(btnPrivacy);
+    }
+
+    public void clickGithubLoginBtn() {
+        clickOnElement(btnGithubLogin);
+    }
+
+   public void clickPublishGistBtn() {
+        clickOnElement(btnPublishGist);
+    }
+
+   public void clickLoadGistBtn() {
+        clickOnElement(btnLoadGist);
+    }
+
+   public void setLoadGistId(String gistId) {
+        setTextFieldValue(txtLoadGist, gistId);
     }
 
     public void clickEditorBtn() {

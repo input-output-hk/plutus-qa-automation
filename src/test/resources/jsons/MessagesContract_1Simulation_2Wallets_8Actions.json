@@ -1,0 +1,131 @@
+{
+  "messages":  {
+    "simulations": [
+      {
+        "title": "Simulation #1",
+        "wallets": [
+          {
+            "title": "Wallet #1",
+            "currency": "ADA",
+            "balance": 1111,
+            "availableFunctions": [
+              "logAMessage",
+              "submitInvalidTxn",
+              "throwWalletAPIError",
+              "payToPublicKey_"
+            ],
+            "actions": [
+              {
+                "title": "logAMessage",
+                "parameters": {}
+              },
+              {
+                "title": "submitInvalidTxn",
+                "parameters": {}
+              },
+              {
+                "title": "throwWalletAPIError",
+                "parameters": {
+                  "inputString": {
+                    "value": "aaa",
+                    "type": "basic"
+                  }
+                }
+              },
+              {
+                "title": "payToPublicKey_",
+                "parameters": {
+                  "ivTo": {
+                    "value": 15,
+                    "type": "basic"
+                  },
+                  "ivFrom": {
+                    "value": 16,
+                    "type": "basic"
+                  },
+                  "getValue": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "int1": 17,
+                        "int2": 18
+                      },
+                      {
+                        "int1": 19,
+                        "int2": 20
+                      }
+                    ]
+                  },
+                  "getPubKey": {
+                    "value": 21,
+                    "type": "basic"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "title": "Wallet #2",
+            "currency": "ADA",
+            "balance": 42346,
+            "availableFunctions": [
+              "logAMessage",
+              "submitInvalidTxn",
+              "throwWalletAPIError",
+              "payToPublicKey_"
+            ],
+            "actions": [
+              {
+                "title": "logAMessage",
+                "parameters": {}
+              },
+              {
+                "title": "submitInvalidTxn",
+                "parameters": {}
+              },
+              {
+                "title": "throwWalletAPIError",
+                "parameters": {
+                  "inputString": {
+                    "value": "bbb",
+                    "type": "basic"
+                  }
+                }
+              },
+              {
+                "title": "payToPublicKey_",
+                "parameters": {
+                  "ivTo": {
+                    "value": 15,
+                    "type": "basic"
+                  },
+                  "ivFrom": {
+                    "value": 16,
+                    "type": "basic"
+                  },
+                  "getValue": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "int1": 17,
+                        "int2": 18
+                      },
+                      {
+                        "int1": 19,
+                        "int2": 20
+                      }
+                    ]
+                  },
+                  "getPubKey": {
+                    "value": 21,
+                    "type": "basic"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,5 +1,6 @@
 package io.iohk.frontEndTests;
 
+import io.iohk.dataModels.*;
 import io.iohk.utils.Enums;
 import io.iohk.utils.Log;
 import org.testng.Assert;
@@ -105,14 +106,49 @@ public class GeneralMethods extends BaseTest {
                 Log.info("  --- Checking the default Action values for Action: ---  " + walletFunction);
                 simulationPage.createAction(walletTitle, walletFunction);
                 int numberOfConfiguredActions = simulationPage.getActionTitlesList().size();
-                Log.info("Getting the functions for Action number: " + numberOfConfiguredActions);
+                Log.info("Getting the functions for Action number: " + numberOfConfiguredActions + " - " + walletFunction);
                 List<String> actionFunctionsList = simulationPage.getActionByNumberFunctionsList(numberOfConfiguredActions);
-                LinkedList<String> expectedFunctionsList = new LinkedList<>(Arrays.asList(defaultContractValues.get(walletFunction).
-                        toString().
-                        replaceAll("\"", "").
-                        replaceAll("]", "").
-                        replaceAll("\\[", "")
-                        .split(",")));
+                LinkedList<String> expectedFunctionsList = new LinkedList<>();
+
+                if (smartContract == Enums.SmartContract.VESTING) {
+
+                    LinkedList<String> partialFunctionsList = new LinkedList<>(Arrays.asList(defaultContractValues.get(walletFunction).
+                            toString().
+                            replaceAll("\"", "").
+                            replaceAll("]", "").
+                            replaceAll("\\[", "")
+                            .split(",")));
+
+//                     cred ca mai bine fac un test cu o clasa si cum sa tranform din json in acea clasa...
+
+                    for (String element : partialFunctionsList) {
+                        String el = element.
+                                replaceAll("\\{", "").
+                                replaceAll("}", "").
+                                replaceAll("]", "").
+                                replaceAll("\\[", "").
+                                replaceAll("\"", "").
+                                split(":")[0];
+
+                        expectedFunctionsList.add(el);
+
+                        System.out.println("el: " + el);
+                    }
+
+                    System.out.println("actionFunctionsList: " + actionFunctionsList);
+                    System.out.println("partialFunctionsList: " + partialFunctionsList);
+                    System.out.println("expectedFunctionsList: " + expectedFunctionsList);
+                    System.out.println("defaultContractValues.get(walletFunction): " + defaultContractValues.get(walletFunction));
+
+
+                } else {
+                    expectedFunctionsList = new LinkedList<>(Arrays.asList(defaultContractValues.get(walletFunction).
+                            toString().
+                            replaceAll("\"", "").
+                            replaceAll("]", "").
+                            replaceAll("\\[", "")
+                            .split(",")));
+                }
 
                 if (expectedFunctionsList.size() == 1 && expectedFunctionsList.get(0).equals("")) {
                     expectedFunctionsList.remove(0);
@@ -216,5 +252,69 @@ public class GeneralMethods extends BaseTest {
             }
         }
         return notMatchingActionTitles;
+    }
+
+    protected void createContractScenario(Contract contract) {
+        Log.debug("Compile the Contract");
+        compileSpecificSmartContract(Enums.SmartContract.valueOf(contract.getTitle()));
+
+        Log.info("Create the Simulation");
+        List<Simulation> simulations = contract.getSimulationsList();
+
+        int count1 = 1;
+        for (Simulation simulation : simulations) {
+            Log.info("Creating Simulation"); // starting with the second Simulation
+            if (count1 > 1) {
+                simulationPage.createAndOpenNewSimulation();
+            }
+
+            Log.info("Close all the available Wallets");
+            simulationPage.closeAllWallets();
+
+            Log.info("Create the Wallets and Actions based on json schema");
+            for (Wallet wallet : simulation.getWalletsList()) {
+                Log.info("Creating Wallet - " + wallet.getTitle());
+                simulationPage.clickAddWalletBtn();
+                simulationPage.setWalletBalance(wallet.getTitle(), wallet.getBalance());
+
+                Log.info("Creating Wallet Actions...");
+                List<Action> actions = wallet.getActionsList();
+                for (Action action : actions) {
+                    Log.info("Creating new action: " + wallet.getTitle() + ": " + action.getTitle());
+                    int noOfPreExistingActions = simulationPage.getActionTitlesList().size();
+                    simulationPage.createAction(wallet.getTitle(), action.getTitle());
+                    action.setNumber(noOfPreExistingActions + 1);
+
+                    for (ActionParameter parameter : action.getActionParametersList()) {
+                        switch (parameter.getType()) {
+                            case "basic":
+                                simulationPage.fillActionParameters(action.getNumber(), parameter.getTitle(),
+                                        parameter.getValue().get(0).values().toArray()[0].toString());
+                                break;
+                            case "multivalue":
+                                int count2 = 1;
+                                for (Map<String, String> valueMap: parameter.getValue()) {
+                                    Set<String> paramKeys = valueMap.keySet();
+                                    if (parameter.getTitle().equals("getValue")) {
+                                        simulationPage.addGetValue(action.getNumber());
+                                        simulationPage.fillGetValueParam(action.getNumber(), count2,
+                                                1, valueMap.get("int1"));
+                                        simulationPage.fillGetValueParam(action.getNumber(), count2,
+                                                2, valueMap.get("int2"));
+                                        count2 ++;
+                                    } else {
+                                        for (String secondParameter: paramKeys) {
+                                            simulationPage.fillMultiValueParam(action.getNumber(), parameter.getTitle(),
+                                                    secondParameter, valueMap.get(secondParameter));
+                                        }
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+            count1++;
+        }
     }
 }

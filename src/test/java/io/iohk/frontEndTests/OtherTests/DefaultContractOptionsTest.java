@@ -1,5 +1,7 @@
 package io.iohk.frontEndTests.OtherTests;
 
+import io.iohk.dataModels.Contract;
+import io.iohk.dataProviders.ContractProvider;
 import io.iohk.frontEndTests.GeneralMethods;
 import io.iohk.utils.DriverManager;
 import io.iohk.utils.Enums;
@@ -44,8 +46,17 @@ public class DefaultContractOptionsTest extends GeneralMethods {
         //          3.1 the correct Wallet values are created
         //          3.2 the correct Actions are created for each Wallet function
 
-        compileSpecificSmartContract(smartContract);
-        checkDefaultContractValues(smartContract);
+        Contract contract = ContractProvider.readContractFromJson(
+                "/jsons/DefaultContractOptions.json",
+                Enums.SmartContract.CROWDFUNDING);
+
+        createContractDefaultScenario(contract);
+
+
+//        checkDefaultContractValues(smartContract);
+
+
+        mainPage.waitABit(30000);
     }
 
     @AfterMethod

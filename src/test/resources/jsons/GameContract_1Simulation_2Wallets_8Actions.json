@@ -1,0 +1,149 @@
+{
+  "game":  {
+    "simulations": [
+      {
+        "title": "Simulation #1",
+        "wallets": [
+          {
+            "title": "Wallet #1",
+            "currency": "ADA",
+            "balance": 11,
+            "availableFunctions": [
+              "lock",
+              "guess",
+              "startGame",
+              "payToPublicKey_"
+            ],
+            "actions": [
+              {
+                "title": "lock",
+                "parameters": {
+                  "inputString": {
+                    "value": "aaa",
+                    "type": "basic"
+                  },
+                  "getAda": {
+                    "value": 2,
+                    "type": "basic"
+                  }
+                }
+              },
+              {
+                "title": "guess",
+                "parameters": {
+                  "inputString": {
+                    "value": "bbb",
+                    "type": "basic"
+                  }
+                }
+              },
+              {
+                "title": "startGame",
+                "parameters": {}
+              },
+              {
+                "title": "payToPublicKey_",
+                "parameters": {
+                  "ivTo": {
+                    "value": 15,
+                    "type": "basic"
+                  },
+                  "ivFrom": {
+                    "value": 16,
+                    "type": "basic"
+                  },
+                  "getValue": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "int1": 17,
+                        "int2": 18
+                      },
+                      {
+                        "int1": 19,
+                        "int2": 20
+                      }
+                    ]
+                  },
+                  "getPubKey": {
+                    "value": 21,
+                    "type": "basic"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "title": "Wallet #2",
+            "currency": "ADA",
+            "balance": 4,
+            "availableFunctions": [
+              "lock",
+              "guess",
+              "startGame",
+              "payToPublicKey_"
+            ],
+            "actions": [
+              {
+                "title": "lock",
+                "parameters": {
+                  "inputString": {
+                    "value": "aaa",
+                    "type": "basic"
+                  },
+                  "getAda": {
+                    "value": 16,
+                    "type": "basic"
+                  }
+                }
+              },
+              {
+                "title": "guess",
+                "parameters": {
+                  "inputString": {
+                    "value": "aaa",
+                    "type": "basic"
+                  }
+                }
+              },
+              {
+                "title": "startGame",
+                "parameters": {}
+              },
+              {
+                "title": "payToPublicKey_",
+                "parameters": {
+                  "ivTo": {
+                    "value": 15,
+                    "type": "basic"
+                  },
+                  "ivFrom": {
+                    "value": 16,
+                    "type": "basic"
+                  },
+                  "getValue": {
+                    "type": "multivalue",
+                    "value": [
+                      {
+                        "int1": 17,
+                        "int2": 18
+                      },
+                      {
+                        "int1": 19,
+                        "int2": 20
+                      }
+                    ]
+                  },
+                  "getPubKey": {
+                    "value": 21,
+                    "type": "basic"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
