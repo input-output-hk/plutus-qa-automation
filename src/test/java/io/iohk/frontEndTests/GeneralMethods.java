@@ -48,8 +48,8 @@ public class GeneralMethods extends BaseTest {
         editorPage.waitContractCompileSuccess();
     }
 
-    protected void evaluateSimulation() {
-        Log.info("Evaluating the Simulation...");
+    private void evaluateSimulationAndWaitSuccess() {
+        Log.info("Waiting for Simulation to be successfully evaluated...");
         simulationPage.clickEvaluateBtn();
         simulationPage.waitEvaluateSuccess();
     }
@@ -58,7 +58,7 @@ public class GeneralMethods extends BaseTest {
         Log.info("Checking the default tab values");
         checkDefaultSimulationTabValues();
         checkDefaultTransactionsTabValues();
-        Log.info("The default tab messages are correct;y displayed.");
+        Log.info("The default tab messages are correctly displayed");
     }
 
     private void checkDefaultSimulationTabValues() {
@@ -254,67 +254,106 @@ public class GeneralMethods extends BaseTest {
         return notMatchingActionTitles;
     }
 
-    protected void createContractScenario(Contract contract) {
+    protected void executeContractFromScenario(Contract contract) {
         Log.debug("Compile the Contract");
         compileSpecificSmartContract(Enums.SmartContract.valueOf(contract.getTitle()));
 
-        Log.info("Create the Simulation");
-        List<Simulation> simulations = contract.getSimulationsList();
+        Log.debug("Create the Contract from provided scenario - " + contract.getTitle());
+        createContractFromScenario(contract);
 
-        int count1 = 1;
-        for (Simulation simulation : simulations) {
-            Log.info("Creating Simulation"); // starting with the second Simulation
-            if (count1 > 1) {
+        Log.debug("Evaluate all the Simulations from the provided scenario");
+        evaluateAllSimulations(contract.getSimulationsList());
+
+//        Log.debug("Check the Transaction tab values for each simulation");
+//        checkTransactionTabValues(contract);
+    }
+
+    private void evaluateAllSimulations(List<Simulation> simulationList) {
+        Log.info("Evaluate each created Simulation");
+        for (Simulation simulation : simulationList) {
+            Log.info("  - Evaluating Simulation - " + simulation.getTitle());
+            mainPage.clickbtnSimulationBtn();
+            simulationPage.openSimulation(simulation.getTitle());
+            evaluateSimulationAndWaitSuccess();
+        }
+    }
+
+    private void createContractFromScenario(Contract contract) {
+        Log.info("Create the Contract from the provided JSON Scenario");
+        List<Simulation> simulationList = contract.getSimulationsList();
+        createSimulations(simulationList);
+    }
+
+    private void createSimulations(List<Simulation> simulationList) {
+        Log.info("Create the Contract Simulations from the provided JSON Scenario");
+        int count = 1;
+        for (Simulation simulation : simulationList) {
+            Log.info("  - Creating Simulation - " + simulation.getTitle()); // starting with the second Simulation
+            if (count > 1) {
                 simulationPage.createAndOpenNewSimulation();
             }
 
-            Log.info("Close all the available Wallets");
+            Log.info("Close all the available Wallets from - " + simulation.getTitle());
             simulationPage.closeAllWallets();
 
-            Log.info("Create the Wallets and Actions based on json schema");
-            for (Wallet wallet : simulation.getWalletsList()) {
-                Log.info("Creating Wallet - " + wallet.getTitle());
-                simulationPage.clickAddWalletBtn();
-                simulationPage.setWalletBalance(wallet.getTitle(), wallet.getBalance());
+            List<Wallet> walletList = simulation.getWalletsList();
+            createWallets(walletList);
 
-                Log.info("Creating Wallet Actions...");
-                List<Action> actions = wallet.getActionsList();
-                for (Action action : actions) {
-                    Log.info("Creating new action: " + wallet.getTitle() + ": " + action.getTitle());
-                    int noOfPreExistingActions = simulationPage.getActionTitlesList().size();
-                    simulationPage.createAction(wallet.getTitle(), action.getTitle());
-                    action.setNumber(noOfPreExistingActions + 1);
+            count++;
+        }
+    }
 
-                    for (ActionParameter parameter : action.getActionParametersList()) {
-                        switch (parameter.getType()) {
-                            case "basic":
-                                simulationPage.fillActionParameters(action.getNumber(), parameter.getTitle(),
-                                        parameter.getValue().get(0).values().toArray()[0].toString());
-                                break;
-                            case "multivalue":
-                                int count2 = 1;
-                                for (Map<String, String> valueMap: parameter.getValue()) {
-                                    Set<String> paramKeys = valueMap.keySet();
-                                    if (parameter.getTitle().equals("getValue")) {
-                                        simulationPage.addGetValue(action.getNumber());
-                                        simulationPage.fillGetValueParam(action.getNumber(), count2,
-                                                1, valueMap.get("int1"));
-                                        simulationPage.fillGetValueParam(action.getNumber(), count2,
-                                                2, valueMap.get("int2"));
-                                        count2 ++;
-                                    } else {
-                                        for (String secondParameter: paramKeys) {
-                                            simulationPage.fillMultiValueParam(action.getNumber(), parameter.getTitle(),
-                                                    secondParameter, valueMap.get(secondParameter));
-                                        }
-                                    }
-                                }
-                                break;
+    private void createWallets(List<Wallet> walletList) {
+        Log.info("Create the Simulation Wallets from the provided JSON Scenario");
+        for (Wallet wallet : walletList) {
+            Log.info("  -- Creating Wallet - " + wallet.getTitle());
+            simulationPage.clickAddWalletBtn();
+            simulationPage.setWalletBalance(wallet.getTitle(), wallet.getBalance());
+
+            List<Action> actionList = wallet.getActionsList();
+            createActions(wallet, actionList);
+        }
+    }
+
+    private void createActions(Wallet wallet, List<Action> actionList) {
+        Log.info("Create the Wallet Actions from the provided JSON Scenario");
+        for (Action action : actionList) {
+            Log.info("  --- Creating Action: " + wallet.getTitle() + ": " + action.getTitle());
+            int noOfPreExistingActions = simulationPage.getActionTitlesList().size();
+            simulationPage.createAction(wallet.getTitle(), action.getTitle());
+            action.setNumber(noOfPreExistingActions + 1);
+
+            List<ActionParameter> actionParameterList = action.getActionParametersList();
+            fillActionParameters(action, actionParameterList);
+        }
+    }
+
+    private void fillActionParameters(Action action, List<ActionParameter> actionParameterList) {
+        Log.info("Fill the Action Parameters values from the provided JSON Scenario");
+        for (ActionParameter parameter : actionParameterList) {
+            switch (parameter.getType()) {
+                case "basic":
+                    simulationPage.fillActionParameters(action.getNumber(), parameter.getTitle(),
+                            parameter.getValue().get(0).values().toArray()[0].toString());
+                    break;
+                case "multivalue":
+                    int count2 = 1;
+                    for (Map<String, String> valueMap: parameter.getValue()) {
+                        Set<String> paramKeys = valueMap.keySet();
+                        if (parameter.getTitle().equals("getValue")) {
+                            simulationPage.addGetValue(action.getNumber());
+                            simulationPage.fillGetValueParam(action.getNumber(), count2,1, valueMap.get("int1"));
+                            simulationPage.fillGetValueParam(action.getNumber(), count2,2, valueMap.get("int2"));
+                            count2 ++;
+                        } else {
+                            for (String secondParameter: paramKeys) {
+                                simulationPage.fillMultiValueParam(action.getNumber(), parameter.getTitle(),
+                                        secondParameter, valueMap.get(secondParameter));
+                            }
                         }
                     }
-                }
+                    break;
             }
-            count1++;
         }
     }
 }

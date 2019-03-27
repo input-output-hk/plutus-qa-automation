@@ -17,6 +17,7 @@ public class EvaluateContractsPositiveTest extends GeneralMethods {
         return new Object[][] {
                 { "/jsons/CrowdfundigContract_1Simulation_2Wallets_7Actions.json", Enums.SmartContract.CROWDFUNDING},
                 { "/jsons/CrowdfundigContract_2Simulations_2Wallets_7Actions.json", Enums.SmartContract.CROWDFUNDING},
+                { "/jsons/CrowdfundigContract_2Simulations_15Wallets.json", Enums.SmartContract.CROWDFUNDING},
                 { "/jsons/VestingContract_1Simulation_2Wallets_8Actions.json", Enums.SmartContract.VESTING},
                 { "/jsons/MessagesContract_1Simulation_2Wallets_8Actions.json", Enums.SmartContract.MESSAGES},
                 { "/jsons/GameContract_1Simulation_2Wallets_8Actions.json", Enums.SmartContract.GAME}
@@ -27,12 +28,12 @@ public class EvaluateContractsPositiveTest extends GeneralMethods {
     public void checkDefaultContractOptions(String dataSoruce, Enums.SmartContract smartContract) throws Exception {
         // Test steps:
         //      1. Create the scenarios from the provided JSON files
-        //      2. Evaluate the contracts and check that:
-        //          3.1 each contract is successfully compile
+        //      2. Create and Evaluate the scenarios and check that:
+        //          3.1 each contract is successfully compiled
         //          3.2 each contract is successfully evaluated
 
         Contract contract = ContractProvider.readContractFromJson(dataSoruce, smartContract);
-        createContractScenario(contract);
+        executeContractFromScenario(contract);
     }
 
     @AfterMethod

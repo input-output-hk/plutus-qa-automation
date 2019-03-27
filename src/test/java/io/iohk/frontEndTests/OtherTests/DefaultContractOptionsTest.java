@@ -37,6 +37,7 @@ public class DefaultContractOptionsTest extends GeneralMethods {
         return data;
     }
 
+    @Ignore
     @Test(dataProvider = "SmartContracts")
     public void checkDefaultContractOptions(Enums.SmartContract smartContract) throws Exception {
         // Test steps:
@@ -50,7 +51,7 @@ public class DefaultContractOptionsTest extends GeneralMethods {
                 "/jsons/DefaultContractOptions.json",
                 Enums.SmartContract.CROWDFUNDING);
 
-        createContractDefaultScenario(contract);
+//        createContractDefaultScenario(contract);
 
 
 //        checkDefaultContractValues(smartContract);

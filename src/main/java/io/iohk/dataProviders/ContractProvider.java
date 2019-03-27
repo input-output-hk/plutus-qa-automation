@@ -16,7 +16,7 @@ import java.util.*;
 
 import static io.iohk.utils.FilesUtils.readJson;
 
-public class ContractProvider {
+public class ContractProvider{
 
     public static Contract readContractFromJson(String dataSourceName, Enums.SmartContract smartContract) throws Exception {
         File f = getFileResource(dataSourceName);
@@ -32,6 +32,7 @@ public class ContractProvider {
     }
 
     private static Contract createContractFromJsonNode(JsonNode contractNode, String smartContract) {
+        Log.info("=================== Start Reading JSON values =======================");
         Log.info("Reading Contract values from JSON file...");
         Contract contract = new Contract();
         contract.setTitle(smartContract);
@@ -44,6 +45,7 @@ public class ContractProvider {
             Assert.fail("ERROR: simulationsNode is null or it is not defined as Array; - " + simulationsNode);
         }
 
+        Log.info("=================== End Reading JSON values =======================");
         return contract;
     }
 
@@ -51,19 +53,29 @@ public class ContractProvider {
         Log.info(" Reading List of Simulation values from JSON file...");
         List<Simulation> simulationsList = new ArrayList<>();
 
+        int noOfCreatedSimulations = 1;
         for (JsonNode simulationNode : simulationsNode) {
-            Simulation simulation = new Simulation();
-            simulation.setTitle(simulationNode.get("title").asText());
-
-            ArrayNode walletsNode = (ArrayNode) simulationNode.get("wallets");
-            if (walletsNode != null && walletsNode.isArray()) {
-                simulation.setWalletsList(createListOfWalletsFromJson(walletsNode));
-            } else {
-                Assert.fail("ERROR: walletsNode is null or it is not defined as Array; - " + simulationsNode);
+            int addMultipleTimes = 1;
+            // as default the simulation will be added only 1 time
+            // if "addMultipleTimes" parameter is present inside the simulation json, the simulation will be created by that number of times
+            if (simulationNode.hasNonNull("addMultipleTimes")) {
+                addMultipleTimes = simulationNode.get("addMultipleTimes").asInt();
             }
-            simulationsList.add(simulation);
-        }
+            for (int i = 1; i <= addMultipleTimes; i++) {
+                Simulation simulation = new Simulation();
+                simulation.setTitle("Simulation #" + noOfCreatedSimulations);
 
+                ArrayNode walletsNode = (ArrayNode) simulationNode.get("wallets");
+                if (walletsNode != null && walletsNode.isArray()) {
+                    simulation.setWalletsList(createListOfWalletsFromJson(walletsNode));
+                } else {
+                    Assert.fail("ERROR: walletsNode is null or it is not defined as Array; - " + simulationsNode);
+                }
+                simulationsList.add(simulation);
+
+                noOfCreatedSimulations++;
+            }
+        }
         return simulationsList;
     }
 
@@ -71,26 +83,37 @@ public class ContractProvider {
         Log.info(" Reading List of Wallet values from JSON file...");
         List<Wallet> walletsList = new ArrayList<>();
 
+        int noOfCreatedWallets = 1;
         for (JsonNode walletNode : walletsNode) {
-            Wallet wallet = new Wallet();
-            wallet.setTitle(walletNode.get("title").asText());
-            wallet.setCurrency(walletNode.get("currency").asText());
-            wallet.setBalance(walletNode.get("balance").asInt());
-
-            ArrayNode availableFunctionsNode = (ArrayNode) walletNode.get("availableFunctions");
-            if (availableFunctionsNode != null && availableFunctionsNode.isArray()) {
-                wallet.setAvailableFunctionsList(createListOfWalletFunctionsFromJson(availableFunctionsNode));
-            } else {
-                Log.warn("WARNING: Wallet's availableFunctions node is not Array or it is null (it can be ok) - " + walletsNode);
+            int addMultipleTimes = 1;
+            // as default the wallet will be added only 1 time
+            // if "addMultipleTimes" parameter is present inside the wallet json, the wallet will be created by that number of times
+            if (walletNode.hasNonNull("addMultipleTimes")) {
+                addMultipleTimes = walletNode.get("addMultipleTimes").asInt();
             }
+            for (int i = 1; i <= addMultipleTimes; i++) {
+                Wallet wallet = new Wallet();
+                wallet.setTitle("Wallet #" + noOfCreatedWallets);
+                wallet.setCurrency(walletNode.get("currency").asText());
+                wallet.setBalance(walletNode.get("balance").asInt());
 
-            ArrayNode actionsNode = (ArrayNode) walletNode.get("actions");
-            if (actionsNode != null && actionsNode.isArray()) {
-                wallet.setActionsList(createListOfActionsFromJson(actionsNode));
-            } else {
-                Assert.fail("ERROR: Wallet's Actions node is not Array or it is null - " + actionsNode);
+                ArrayNode availableFunctionsNode = (ArrayNode) walletNode.get("availableFunctions");
+                if (availableFunctionsNode != null && availableFunctionsNode.isArray()) {
+                    wallet.setAvailableFunctionsList(createListOfWalletFunctionsFromJson(availableFunctionsNode));
+                } else {
+                    Log.warn("WARNING: Wallet's availableFunctions node is not Array or it is null (it can be ok) - " + walletsNode);
+                }
+
+                ArrayNode actionsNode = (ArrayNode) walletNode.get("actions");
+                if (actionsNode != null && actionsNode.isArray()) {
+                    wallet.setActionsList(createListOfActionsFromJson(actionsNode));
+                } else {
+                    Assert.fail("ERROR: Wallet's Actions node is not Array or it is null - " + actionsNode);
+                }
+                walletsList.add(wallet);
+
+                noOfCreatedWallets ++;
             }
-            walletsList.add(wallet);
         }
         return walletsList;
     }

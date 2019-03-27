@@ -347,7 +347,7 @@ public class SimulationPage extends BasePage {
     }
 
     public void fillActionParameters(int actionNumber, String parameterTitle, String parameterValue) {
-        Log.info("  - Set parameter value: " + parameterValue + "; actionNo: " + actionNumber + ": " + parameterTitle);
+        Log.info("  - Set parameter value: " + parameterValue + "; actionNo: " + actionNumber + " - " + parameterTitle);
         String actionParameterLocator =
                         "//div[contains(@class,'action-" +
                         (actionNumber - 1) +
