@@ -15,11 +15,11 @@ public class EvaluateContractsPositiveTest extends GeneralMethods {
     @DataProvider
     public Object[][] DataProviderCrowdfunding() {
         return new Object[][] {
-                { "/jsons/CrowdfundigContract_1Simulation_2Wallets_7Actions.json", Enums.SmartContract.CROWDFUNDING},
-                { "/jsons/CrowdfundigContract_2Simulations_2Wallets_7Actions.json", Enums.SmartContract.CROWDFUNDING},
-                { "/jsons/CrowdfundigContract_2Simulations_15Wallets.json", Enums.SmartContract.CROWDFUNDING},
-                { "/jsons/VestingContract_1Simulation_2Wallets_8Actions.json", Enums.SmartContract.VESTING},
-                { "/jsons/MessagesContract_1Simulation_2Wallets_8Actions.json", Enums.SmartContract.MESSAGES},
+//                { "/jsons/CrowdfundigContract_1Simulation_2Wallets_7Actions.json", Enums.SmartContract.CROWDFUNDING},
+//                { "/jsons/CrowdfundigContract_2Simulations_2Wallets_7Actions.json", Enums.SmartContract.CROWDFUNDING},
+//                { "/jsons/CrowdfundigContract_2Simulations_15Wallets.json", Enums.SmartContract.CROWDFUNDING},
+//                { "/jsons/VestingContract_1Simulation_2Wallets_8Actions.json", Enums.SmartContract.VESTING},
+//                { "/jsons/MessagesContract_1Simulation_2Wallets_8Actions.json", Enums.SmartContract.MESSAGES},
                 { "/jsons/GameContract_1Simulation_2Wallets_8Actions.json", Enums.SmartContract.GAME}
         };
     }

@@ -163,6 +163,11 @@ public class ContractProvider{
                     valueParamMap.put(entry.getKey(), entry.getValue().get("value").asText());
                     actionParameter.setValue(Collections.singletonList(valueParamMap));
                     break;
+                case "string":
+                    HashMap<String, String> valueParamMap1 = new HashMap<>();
+                    valueParamMap1.put(entry.getKey(), entry.getValue().get("value").asText());
+                    actionParameter.setValue(Collections.singletonList(valueParamMap1));
+                    break;
                 case "multivalue":
                     List<HashMap<String, String>> multiValueList = new ArrayList<>();
                     ArrayNode valuesNode = (ArrayNode) entry.getValue().get("value");

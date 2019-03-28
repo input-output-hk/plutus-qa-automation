@@ -333,7 +333,11 @@ public class GeneralMethods extends BaseTest {
         for (ActionParameter parameter : actionParameterList) {
             switch (parameter.getType()) {
                 case "basic":
-                    simulationPage.fillActionParameters(action.getNumber(), parameter.getTitle(),
+                    simulationPage.fillBasicActionParameters(action.getNumber(), parameter.getTitle(),
+                            parameter.getValue().get(0).values().toArray()[0].toString());
+                    break;
+                case "string":
+                    simulationPage.fillStringActionParameters(action.getNumber(), parameter.getTitle(),
                             parameter.getValue().get(0).values().toArray()[0].toString());
                     break;
                 case "multivalue":

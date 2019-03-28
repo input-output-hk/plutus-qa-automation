@@ -20,7 +20,7 @@
                 "parameters": {
                   "inputString": {
                     "value": "aaa",
-                    "type": "basic"
+                    "type": "string"
                   },
                   "getAda": {
                     "value": 2,
@@ -33,7 +33,7 @@
                 "parameters": {
                   "inputString": {
                     "value": "bbb",
-                    "type": "basic"
+                    "type": "string"
                   }
                 }
               },
@@ -89,7 +89,7 @@
                 "parameters": {
                   "inputString": {
                     "value": "aaa",
-                    "type": "basic"
+                    "type": "string"
                   },
                   "getAda": {
                     "value": 16,
@@ -102,7 +102,7 @@
                 "parameters": {
                   "inputString": {
                     "value": "aaa",
-                    "type": "basic"
+                    "type": "string"
                   }
                 }
               },

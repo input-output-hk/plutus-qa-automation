@@ -28,7 +28,7 @@
                 "parameters": {
                   "inputString": {
                     "value": "aaa",
-                    "type": "basic"
+                    "type": "string"
                   }
                 }
               },
@@ -88,7 +88,7 @@
                 "parameters": {
                   "inputString": {
                     "value": "bbb",
-                    "type": "basic"
+                    "type": "string"
                   }
                 }
               },

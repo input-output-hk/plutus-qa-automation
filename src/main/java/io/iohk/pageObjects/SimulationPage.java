@@ -346,7 +346,7 @@ public class SimulationPage extends BasePage {
         Log.info("  - All actions were successfully closed");
     }
 
-    public void fillActionParameters(int actionNumber, String parameterTitle, String parameterValue) {
+    public void fillBasicActionParameters(int actionNumber, String parameterTitle, String parameterValue) {
         Log.info("  - Set parameter value: " + parameterValue + "; actionNo: " + actionNumber + " - " + parameterTitle);
         String actionParameterLocator =
                         "//div[contains(@class,'action-" +
@@ -354,6 +354,16 @@ public class SimulationPage extends BasePage {
                         "')]//label[text()='" +
                         parameterTitle +
                         "'][not(ancestor::div[@class='nested'])]//parent::div//input";
+        WebElement actionParameterObj = driver.findElement(By.xpath(actionParameterLocator));
+        setTextFieldValue(actionParameterObj, parameterValue);
+    }
+
+    public void fillStringActionParameters(int actionNumber, String parameterTitle, String parameterValue) {
+        Log.info("  - Set parameter value: " + parameterValue + "; actionNo: " + actionNumber + " - " + parameterTitle);
+        String actionParameterLocator =
+                "//div[contains(@class,'action-" +
+                        (actionNumber - 1) +
+                        "')]//input[not(ancestor::div[@class='form-group'])]";
         WebElement actionParameterObj = driver.findElement(By.xpath(actionParameterLocator));
         setTextFieldValue(actionParameterObj, parameterValue);
     }
