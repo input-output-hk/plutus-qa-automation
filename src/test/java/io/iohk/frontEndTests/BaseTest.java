@@ -130,9 +130,8 @@ public class BaseTest {
         // screenshot file
         File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 
-        // file name + file path
-
-        String fileName = "\\screenshots\\" + className + "_" + testName + "_" + currentDate + "_" + ".png";
+        // add 'file name' + 'file path' to the screenshot name
+        String fileName = "\\screenshots\\" + className + "_" + testName.replaceAll("/", "-") + "_" + currentDate + "_" + ".png";
         String filePath = System.getProperties().get("user.dir") + fileName;
 
         // copy screenshot in destination folder
