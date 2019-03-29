@@ -7,4 +7,7 @@ public class Constants {
     public static String PROD = "https://prod.playground.plutus.iohkdev.io/";
     public static String DEV_KRIS = "https://kris.plutus.iohkdev.io/";
     public static String DEV_DAVID = "https://david.plutus.iohkdev.io/";
+
+    public static String GITHUB_USER = "gitUsername";
+    public static String GITHUB_PASS = "gitPassword";
 }
