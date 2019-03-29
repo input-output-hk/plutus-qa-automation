@@ -25,7 +25,7 @@ public class GistTest extends GeneralMethods {
     @Test(dataProvider = "dataProviderScenarios")
     public void gistTest(String dataSoruce, Enums.SmartContract smartContract) throws Exception {
         // Test steps:
-        //      1. Create and Evauate the scenarios from each provided JSON files
+        //      1. Create and Evaluate the scenarios from each provided JSON files
         //      2. Sign In to Github button using the header button/option
         //      3. Check that the Simulation tab values are still remembered
         //      4. Save the scenario as a github gist

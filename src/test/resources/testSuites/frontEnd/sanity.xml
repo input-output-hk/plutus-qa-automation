@@ -10,7 +10,8 @@
     <test name="frontend">
         <classes>
             <class name="io.iohk.frontEndTests.OtherTests.AddDeleteWalletsTest" />
-            <class name="io.iohk.frontEndTests.OtherTests.DefaultContractOptionsTest" />
+            <class name="io.iohk.frontEndTests.OtherTests.EvaluateContractsPositiveTest" />
+            <class name="io.iohk.frontEndTests.OtherTests.GistTest" />
             <class name="io.iohk.frontEndTests.OtherTests.HeaderLinksTest" />
         </classes>
     </test>
