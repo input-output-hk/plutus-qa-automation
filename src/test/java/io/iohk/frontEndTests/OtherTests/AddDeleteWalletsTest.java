@@ -18,7 +18,7 @@ import java.util.List;
 public class AddDeleteWalletsTest extends GeneralMethods {
 
     @DataProvider
-    public Object[][] SmartContracts()  {
+    public Object[][] smartContracts()  {
         List<Enums.SmartContract> enumValues = Arrays.asList(Enums.SmartContract.values());
 
         Object[][] data = new Object[enumValues.size()][1];
@@ -32,7 +32,7 @@ public class AddDeleteWalletsTest extends GeneralMethods {
         return data;
     }
 
-    @Test(dataProvider = "SmartContracts")
+    @Test(dataProvider = "smartContracts")
     public void addDeleteWallets(Enums.SmartContract smartContract) {
         // Test steps:
         //      1. Open Plutus Playground UI

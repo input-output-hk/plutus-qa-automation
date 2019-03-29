@@ -15,7 +15,7 @@ import java.util.List;
 public class HeaderLinksTest extends GeneralMethods {
 
     @DataProvider
-    public Object[][] MainPageLinks()  {
+    public Object[][] mainPageLinks()  {
         List<Enums.MainPageLinks> enumValues = Arrays.asList(Enums.MainPageLinks.values());
 
         Object[][] data = new Object[enumValues.size()][1];
@@ -29,7 +29,7 @@ public class HeaderLinksTest extends GeneralMethods {
         return data;
     }
 
-    @Test(dataProvider = "MainPageLinks")
+    @Test(dataProvider = "mainPageLinks")
     public void headerLinks(Enums.MainPageLinks mainPageLinks) {
         // Test steps:
         //      1. Check that the main page header links are opening the correct web pages

@@ -13,7 +13,7 @@ import org.testng.annotations.*;
 @Listeners({ScreenshotListener.class, TestListener.class, AnnotationTransformer.class})
 public class EvaluateContractsPositiveTest extends GeneralMethods {
     @DataProvider
-    public Object[][] DataProviderCrowdfunding() {
+    public Object[][] dataProviderScenarios() {
         return new Object[][] {
 //                { "/jsons/CrowdfundigContract_1Simulation_2Wallets_7Actions.json", Enums.SmartContract.CROWDFUNDING},
 //                { "/jsons/CrowdfundigContract_2Simulations_2Wallets_7Actions.json", Enums.SmartContract.CROWDFUNDING},
@@ -24,8 +24,8 @@ public class EvaluateContractsPositiveTest extends GeneralMethods {
         };
     }
 
-    @Test(dataProvider = "DataProviderCrowdfunding")
-    public void checkDefaultContractOptions(String dataSoruce, Enums.SmartContract smartContract) throws Exception {
+    @Test(dataProvider = "dataProviderScenarios")
+    public void evaluatePositiveDemoScenarios(String dataSoruce, Enums.SmartContract smartContract) throws Exception {
         // Test steps:
         //      1. Create the scenarios from the provided JSON files
         //      2. Create and Evaluate the scenarios and check that:
@@ -34,7 +34,8 @@ public class EvaluateContractsPositiveTest extends GeneralMethods {
         //          3.3 each contract is successfully evaluated
 
         Contract contract = ContractProvider.readContractFromJson(dataSoruce, smartContract);
-        executeContractFromScenario(contract);
+
+        evaluateContractFromScenario(contract);
     }
 
     @AfterMethod

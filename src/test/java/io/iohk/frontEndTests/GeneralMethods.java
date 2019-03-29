@@ -263,14 +263,22 @@ public class GeneralMethods extends BaseTest {
         githubLoginPage.clickSignInBtn();
     }
 
-    protected void publishGist() {
+    protected String publishGist() {
         Log.info("Publishing the Gist to Github...");
         mainPage.clickPublishGistBtn();
         mainPage.waitPublishGistToFinish();
         Log.info("Gist successfully published - " + mainPage.getGistId());
+        return mainPage.getGistId();
     }
 
-    protected void executeContractFromScenario(Contract contract) {
+    protected void loadGistId(String gistId) {
+        Log.info("Loading Gist ID - " + gistId);
+        mainPage.setLoadGistId(gistId);
+        mainPage.clickLoadGistBtn();
+        mainPage.waitPublishGistToFinish();
+    }
+
+    protected void evaluateContractFromScenario(Contract contract) {
         Log.debug("Compile the Contract");
         compileSpecificSmartContract(Enums.SmartContract.valueOf(contract.getTitle()));
 

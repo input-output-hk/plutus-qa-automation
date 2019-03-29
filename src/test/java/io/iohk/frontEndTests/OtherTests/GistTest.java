@@ -5,6 +5,7 @@ import io.iohk.dataProviders.ContractProvider;
 import io.iohk.frontEndTests.GeneralMethods;
 import io.iohk.utils.DriverManager;
 import io.iohk.utils.Enums;
+import io.iohk.utils.Log;
 import io.iohk.utils.listeners.AnnotationTransformer;
 import io.iohk.utils.listeners.ScreenshotListener;
 import io.iohk.utils.listeners.TestListener;
@@ -14,26 +15,45 @@ import org.testng.annotations.*;
 @Listeners({ScreenshotListener.class, TestListener.class, AnnotationTransformer.class})
 public class GistTest extends GeneralMethods {
     @DataProvider
-    public Object[][] DataProviderCrowdfunding() {
+    public Object[][] dataProviderScenarios() {
         return new Object[][] {
-                { "/jsons/CrowdfundigContract_1Simulation_2Wallets_7Actions.json", Enums.SmartContract.CROWDFUNDING}
-//                { "/jsons/CrowdfundigContract_3Simulations_15Wallets.json", Enums.SmartContract.CROWDFUNDING}
+                { "/jsons/CrowdfundigContract_1Simulation_2Wallets_7Actions.json", Enums.SmartContract.CROWDFUNDING},
+                { "/jsons/CrowdfundigContract_3Simulations_15Wallets.json", Enums.SmartContract.CROWDFUNDING}
         };
     }
 
-    @Test(dataProvider = "DataProviderCrowdfunding")
-    public void checkDefaultContractOptions(String dataSoruce, Enums.SmartContract smartContract) throws Exception {
+    @Test(dataProvider = "dataProviderScenarios")
+    public void gistTest(String dataSoruce, Enums.SmartContract smartContract) throws Exception {
         // Test steps:
-        //      1. Create the scenarios from the provided JSON files
-        //      2. Save the scenario as a github gist
-        //      3. Load the gist and check the Simulation tab values
+        //      1. Create and Evauate the scenarios from each provided JSON files
+        //      2. Sign In to Github button using the header button/option
+        //      3. Check that the Simulation tab values are still remembered
+        //      4. Save the scenario as a github gist
+        //      5. Compile another Demo contract - Vesting
+        //      6. Load the previously created gist and check the Simulation tab values
 
         Contract contract = ContractProvider.readContractFromJson(dataSoruce, smartContract);
-        executeContractFromScenario(contract);
+
+        Log.debug(" 1. Create and Evauate the scenarios from each provided JSON files");
+        evaluateContractFromScenario(contract);
+
+        Log.debug("2. Sign In to Github button using the header button/option");
         signInToGithub();
-        publishGist();
+
+        Log.debug("3. Check that the Simulation tab values");
         checkSimulationTabValues(contract);
 
+        Log.debug("4. Save the scenario as a github gist");
+        String gistId = publishGist();
+
+        Log.debug("5. Compile another Demo contract - Vestings");
+        compileSpecificSmartContract(Enums.SmartContract.VESTING);
+
+        Log.debug("6. Load the previously created gist");
+        loadGistId(gistId);
+
+        Log.debug("7. Check that the Simulation tab values");
+        checkSimulationTabValues(contract);
     }
 
     @AfterMethod
