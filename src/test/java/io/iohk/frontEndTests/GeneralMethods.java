@@ -1,6 +1,7 @@
 package io.iohk.frontEndTests;
 
 import io.iohk.dataModels.*;
+import io.iohk.utils.Constants;
 import io.iohk.utils.Enums;
 import io.iohk.utils.Log;
 import org.testng.Assert;
@@ -254,6 +255,21 @@ public class GeneralMethods extends BaseTest {
         return notMatchingActionTitles;
     }
 
+    protected void signInToGithub() {
+        Log.info("Signing In to GitHub");
+        mainPage.clickGithubLoginBtn();
+        githubLoginPage.setUsername(Constants.GITHUB_USER);
+        githubLoginPage.setPassword(Constants.GITHUB_PASS);
+        githubLoginPage.clickSignInBtn();
+    }
+
+    protected void publishGist() {
+        Log.info("Publishing the Gist to Github...");
+        mainPage.clickPublishGistBtn();
+        mainPage.waitPublishGistToFinish();
+        Log.info("Gist successfully published - " + mainPage.getGistId());
+    }
+
     protected void executeContractFromScenario(Contract contract) {
         Log.debug("Compile the Contract");
         compileSpecificSmartContract(Enums.SmartContract.valueOf(contract.getTitle()));
@@ -364,7 +380,7 @@ public class GeneralMethods extends BaseTest {
         }
     }
 
-    private void checkSimulationTabValues(Contract contract) {
+    protected void checkSimulationTabValues(Contract contract) {
         Log.info("==================== Start Checking Simulation Tab values ========================");
         Log.info("Check all the configured values inside the Simulations tab");
         mainPage.clickbtnSimulationBtn();

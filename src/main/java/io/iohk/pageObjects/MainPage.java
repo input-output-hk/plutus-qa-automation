@@ -26,11 +26,17 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//button[@id='publish-gist']")
     private WebElement btnPublishGist;
 
+    @FindBy(xpath = "//button[@id='publish-gist']//i[contains(@class,'fa-spinner')]\"")
+    private WebElement btnPublishGistSpinner;
+
     @FindBy(xpath = "//button[@id='load-gist']")
     private WebElement btnLoadGist;
 
     @FindBy(xpath = "//div[@class='gist-controls']//input")
     private WebElement txtLoadGist;
+
+    @FindBy(xpath = "//div[@class='gist-controls']//a[contains(.,'View on Github')]")
+    private WebElement btnViewGistOnGithub;
 
     @FindBy(xpath = "//a[@id='tab-editor']")
     private WebElement btnEditor;
@@ -83,16 +89,29 @@ public class MainPage extends BasePage {
         clickOnElement(btnGithubLogin);
     }
 
-   public void clickPublishGistBtn() {
+    public void clickPublishGistBtn() {
         clickOnElement(btnPublishGist);
     }
 
-   public void clickLoadGistBtn() {
+    public void waitPublishGistToFinish() {
+        waitABit(150);
+        waitForElementToNotBeVisible(btnPublishGistSpinner);
+    }
+
+    public void clickLoadGistBtn() {
         clickOnElement(btnLoadGist);
     }
 
-   public void setLoadGistId(String gistId) {
+    public void setLoadGistId(String gistId) {
         setTextFieldValue(txtLoadGist, gistId);
+    }
+
+    public String getGistId() {
+        return getValueAttrValue(txtLoadGist);
+    }
+
+    public void clickViewGistOnGithubBtn() {
+        clickOnElement(btnViewGistOnGithub);
     }
 
     public void clickEditorBtn() {

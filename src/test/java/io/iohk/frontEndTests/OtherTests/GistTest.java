@@ -10,17 +10,14 @@ import io.iohk.utils.listeners.ScreenshotListener;
 import io.iohk.utils.listeners.TestListener;
 import org.testng.annotations.*;
 
+
 @Listeners({ScreenshotListener.class, TestListener.class, AnnotationTransformer.class})
-public class EvaluateContractsPositiveTest extends GeneralMethods {
+public class GistTest extends GeneralMethods {
     @DataProvider
     public Object[][] DataProviderCrowdfunding() {
         return new Object[][] {
-//                { "/jsons/CrowdfundigContract_1Simulation_2Wallets_7Actions.json", Enums.SmartContract.CROWDFUNDING},
-//                { "/jsons/CrowdfundigContract_2Simulations_2Wallets_7Actions.json", Enums.SmartContract.CROWDFUNDING},
-//                { "/jsons/CrowdfundigContract_3Simulations_15Wallets.json", Enums.SmartContract.CROWDFUNDING},
-//                { "/jsons/VestingContract_1Simulation_2Wallets_8Actions.json", Enums.SmartContract.VESTING},
-//                { "/jsons/MessagesContract_1Simulation_2Wallets_8Actions.json", Enums.SmartContract.MESSAGES},
-                { "/jsons/GameContract_1Simulation_2Wallets_8Actions.json", Enums.SmartContract.GAME}
+                { "/jsons/CrowdfundigContract_1Simulation_2Wallets_7Actions.json", Enums.SmartContract.CROWDFUNDING}
+//                { "/jsons/CrowdfundigContract_3Simulations_15Wallets.json", Enums.SmartContract.CROWDFUNDING}
         };
     }
 
@@ -28,13 +25,15 @@ public class EvaluateContractsPositiveTest extends GeneralMethods {
     public void checkDefaultContractOptions(String dataSoruce, Enums.SmartContract smartContract) throws Exception {
         // Test steps:
         //      1. Create the scenarios from the provided JSON files
-        //      2. Create and Evaluate the scenarios and check that:
-        //          3.1 each contract is successfully compiled
-        //          3.2 all the values from the Simulation tab are filled correctly (as per json)
-        //          3.3 each contract is successfully evaluated
+        //      2. Save the scenario as a github gist
+        //      3. Load the gist and check the Simulation tab values
 
         Contract contract = ContractProvider.readContractFromJson(dataSoruce, smartContract);
         executeContractFromScenario(contract);
+        signInToGithub();
+        publishGist();
+        checkSimulationTabValues(contract);
+
     }
 
     @AfterMethod

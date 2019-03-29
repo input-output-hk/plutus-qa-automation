@@ -1,9 +1,6 @@
 package io.iohk.frontEndTests;
 
-import io.iohk.pageObjects.EditorPage;
-import io.iohk.pageObjects.MainPage;
-import io.iohk.pageObjects.SimulationPage;
-import io.iohk.pageObjects.TransactionsPage;
+import io.iohk.pageObjects.*;
 import io.iohk.utils.Constants;
 import io.iohk.utils.DriverFactory;
 import io.iohk.utils.DriverManager;
@@ -34,6 +31,7 @@ public class BaseTest {
     protected EditorPage editorPage;
     protected SimulationPage simulationPage;
     protected TransactionsPage transactionsPage;
+    protected GithubLoginPage githubLoginPage;
 
     @BeforeSuite
     public void beforeSuite() throws Exception {
@@ -78,6 +76,7 @@ public class BaseTest {
         editorPage = new EditorPage(driver);
         simulationPage = new SimulationPage(driver);
         transactionsPage = new TransactionsPage(driver);
+        githubLoginPage = new GithubLoginPage(driver);
 
         // open the web page / environment
         Log.debug("Open the selected Remix page");

@@ -2,7 +2,7 @@
   "crowdfunding":  {
     "simulations": [
       {
-        "addMultipleTimes": 2,
+        "addMultipleTimes": 3,
         "title": "Simulation #1",
         "wallets": [
           {
