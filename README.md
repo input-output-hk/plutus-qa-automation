@@ -14,9 +14,21 @@ Technologies used: Java, TestNG, Selenium, Maven, Log4j.
         - create a new project using the current git repository
 
 - **_General considerations_**:
-    - All the screenshots for the last run can be found in "**screenshots**" directory. Screenshots are taken for all failed Tests.
+    - All the screenshots for the last run can be found in "**screenshots**" directory. Screenshots are taken for each failed Test.
     - There is also a more visual HTML report that can be found inside "**ExtentHtmlReports**" directory.
     - All the script logs for the last run can be found in "**logs**" directory.
+    
+- **_Creating input JSONs considerations_**:
+    - when creating a new json (as input for a script), use an existing one as model
+    - each json should have these nodes/levels: contract/listOfSimulations/listOfWallets/listOfActions/listOfParameters
+    - each Action Parameter should have a type defined - basic, string or multivalue 
+        - basic - EX: crowdfunding/contribute/campaignDeadline - 1 parameter with 1 value besides it
+        - string - EX: game/guess - 1 parameter with an input field besides it (not title for the field)
+        - multivalue 
+            - EX - crowdfunding/payToPublicKey_/getValue - 1 parameter with multiple rows with multiple input values per row
+            - EX - vesting/vestFunds/vestingTranche2 - 1 parameter with multiple secondary parameters besides it 
+    - if you want to add the same Simulation or Wallet more than 1 times, make sure to add the "addMultipleTimes" parameter to it
+        - EX: CrowdfundigContract_2Simulations_15Wallets.json
     
 - **_Running Scripts using MAVEN_**
     - install Chrome/Firefox on local PC
