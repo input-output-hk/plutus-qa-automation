@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.LinkedHashMap;
+
 public class MainPage extends BasePage {
     @FindBy(xpath = "//a[contains(text(),'Getting Started')]")
     private WebElement btnGettingStarted;

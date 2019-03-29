@@ -350,7 +350,7 @@ public class BasePage {
 	 * hashMap1 = returned values
 	 * hashMap2 = expected values
 	 */
-	public boolean compareHashMaps(HashMap<String, HashMap<String, String>> hashMap1, HashMap<String, HashMap<String, String>> hashMap2) {
+	public boolean compareLinkedHashMaps(LinkedHashMap<String, String> hashMap1, LinkedHashMap<String, String> hashMap2) {
 		if (hashMap1 == null || hashMap2 == null)
 			return false;
 

@@ -88,7 +88,7 @@ public class GeneralMethods extends BaseTest {
         for (String walletTitle : walletTitlesList) {
             Assert.assertEquals(simulationPage.getWalletCurrency(walletTitle).trim(), WALLET_CURRENCY,
                     "Wallet's currency is different than expected for wallet: " + walletTitle);
-            Assert.assertEquals(simulationPage.getWalletInitialBalance(walletTitle), WALLET_INIT_BALANCE,
+            Assert.assertEquals(simulationPage.getWalletBalance(walletTitle), WALLET_INIT_BALANCE,
                     "Wallet's initial balance is different than expected for wallet: " + walletTitle);
             List<String> walletFunctionsList = simulationPage.getWalletFunctionsByTitleList(walletTitle);
             Assert.assertTrue(simulationPage.complexCompareLists(expectedWalletFunctions, walletFunctionsList),
@@ -261,6 +261,9 @@ public class GeneralMethods extends BaseTest {
         Log.debug("Create the Contract from provided scenario - " + contract.getTitle());
         createContractFromScenario(contract);
 
+        Log.debug("Check all configured values inside the Simulation Tab");
+        checkSimulationTabValues(contract);
+
         Log.debug("Evaluate all the Simulations from the provided scenario");
         evaluateAllSimulations(contract.getSimulationsList());
 
@@ -359,5 +362,90 @@ public class GeneralMethods extends BaseTest {
                     break;
             }
         }
+    }
+
+    private void checkSimulationTabValues(Contract contract) {
+        Log.info("==================== Start Checking Simulation Tab values ========================");
+        Log.info("Check all the configured values inside the Simulations tab");
+        mainPage.clickbtnSimulationBtn();
+
+        List<String> simulationTitlesList = new ArrayList<>();
+        List<Simulation> simulationList = contract.getSimulationsList();
+        for (Simulation simulation: simulationList) {
+            simulationPage.openSimulation(simulation.getTitle());
+            simulationTitlesList.add(simulation.getTitle());
+
+            Log.info("  -- Checking the values for: " + simulation.getTitle());
+            List<String> walletTitlesList = new ArrayList<>();
+            for (Wallet wallet: simulation.getWalletsList()) {
+                Log.info("  -- Checking the values for: " + wallet.getTitle());
+                walletTitlesList.add(wallet.getTitle());
+
+                Assert.assertEquals(wallet.getBalance(), simulationPage.getWalletBalance(wallet.getTitle()),
+                        "ERROR: Wallet's balance is different than expected for wallet: " + wallet.getTitle());
+                Assert.assertEquals(wallet.getCurrency(), simulationPage.getWalletCurrency(wallet.getTitle()),
+                        "ERROR: Wallet's currency is different than expected for wallet: " + wallet.getTitle());
+
+                if (wallet.getAvailableFunctionsList() != null) {
+                    List<String> walletFunctionsList = new ArrayList<>();
+                    for (WalletFunction walletFunction : wallet.getAvailableFunctionsList()) {
+                        walletFunctionsList.add(walletFunction.getTitle());
+                    }
+                    Assert.assertTrue(mainPage.complexCompareLists(walletFunctionsList, simulationPage.getWalletFunctionsByTitleList(wallet.getTitle())),
+                            "ERROR: Wallet's available functions are different than expected for wallet: " + wallet.getTitle());
+
+                    List<String> actionTitlesList = simulationPage.getActionTitlesList();
+                    List<String> notMatchingActionTitles = checkActionTitlesFormat(actionTitlesList, walletFunctionsList);
+                    Assert.assertEquals(notMatchingActionTitles.size(), 0,
+                            "ERROR: Some Action titles does not have the expected format - " + notMatchingActionTitles);
+                }
+
+                for (Action action: wallet.getActionsList()) {
+                    Log.info("  --- Checking the values for Action Number: " + action.getNumber() + " - " + action.getTitle());
+                    Assert.assertEquals(simulationPage.getActionTitleByNumber(action.getNumber()), wallet.getTitle() + ": " + action.getTitle(),
+                            "ERROR: Action title is different than expected");
+
+                    for (ActionParameter parameter: action.getActionParametersList()) {
+                        Log.info("    - Checking the value of parameter: " + parameter.getTitle());
+                        switch (parameter.getType()) {
+                            case "basic":
+                                Assert.assertEquals(
+                                    simulationPage.getActionBasicParameterValue(action.getNumber(), parameter.getTitle()),
+                                    parameter.getValue().get(0).values().toArray()[0].toString(),
+                                    "ERROR: Parameter - " + parameter.getTitle() + " - has a different value than expected");
+                                break;
+                            case "string":
+                                Assert.assertEquals(parameter.getValue().get(0).get("inputString"),
+                                        simulationPage.getActionStringParameterValue(action.getNumber()),
+                                        "ERROR: Parameter - " + parameter.getTitle() + " - has a different value than expected");
+                                break;
+                            case "multivalue":
+                                int count = 0;
+                                if (parameter.getTitle().equals("getValue")) {
+                                    for (LinkedHashMap<String, String> rowValuesMap : parameter.getValue()) {
+                                        Assert.assertTrue(mainPage.compareLinkedHashMaps(
+                                                rowValuesMap,
+                                                simulationPage.getActionGetValueParameterValue(action.getNumber()).get(count)),
+                                                "ERROR: Parameter - " + parameter.getTitle() + " - has a different value than expected");
+                                        count++;
+                                    }
+                                } else {
+                                    Assert.assertTrue(mainPage.compareLinkedHashMaps(
+                                            parameter.getValue().get(0),
+                                            simulationPage.getActionMultiValueParameterValue(action.getNumber(), parameter.getTitle())),
+                                            "ERROR: Parameter - " + parameter.getTitle() + " - has a different value than expected");
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+            Assert.assertTrue(mainPage.complexCompareLists(walletTitlesList, simulationPage.getWalletTitlesList()),
+                    "ERROR: The configured Simulations have different names than expected");
+        }
+        Assert.assertTrue(mainPage.complexCompareLists(simulationTitlesList, simulationPage.getSimulationTitlesList()),
+                "ERROR: The configured Simulations have different names than expected");
+
+        Log.info("==================== End Checking Simulation Tab values ========================");
     }
 }

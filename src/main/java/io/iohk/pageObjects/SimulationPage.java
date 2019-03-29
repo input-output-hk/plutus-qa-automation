@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class SimulationPage extends BasePage {
@@ -178,7 +179,7 @@ public class SimulationPage extends BasePage {
         return getTextFieldValue(walletCurrencyObj);
     }
 
-    public int getWalletInitialBalance(String walletTitle) {
+    public int getWalletBalance(String walletTitle) {
         String walletBalanceLocator =
                     "//div[contains(@class,'wallet-')][contains(., '" +
                     walletTitle +
@@ -311,7 +312,7 @@ public class SimulationPage extends BasePage {
         return actionFunctionsList;
     }
 
-    public List<Integer> getActionNumbersByName(String actionName) {
+    public List<Integer> getActionNumbersByTitle(String actionName) {
         Log.info("  - Getting the list of action numbers of the actions with title: " + actionName);
         ArrayList<Integer> actionNumbersList = new ArrayList<>();
         String aciontNumbersLocator =
@@ -326,11 +327,11 @@ public class SimulationPage extends BasePage {
         return actionNumbersList;
     }
 
-    public String getActionNameByNumber(int actionNumber) {
-        Log.info("  - Getting the name of the action with number: " + actionNumber);
+    public String getActionTitleByNumber(int actionNumber) {
+        Log.info("  - Getting the title of the action with number: " + actionNumber);
         String actionTitleLocator =
                     "//div[contains(@class,'action-" +
-                    actionNumber +
+                    (actionNumber - 1) +
                     "')]//h3";
         WebElement actionTitleObj = driver.findElement(By.xpath(actionTitleLocator));
         return getTextFieldValue(actionTitleObj);
@@ -361,9 +362,9 @@ public class SimulationPage extends BasePage {
     public void fillStringActionParameters(int actionNumber, String parameterTitle, String parameterValue) {
         Log.info("  - Set parameter value: " + parameterValue + "; actionNo: " + actionNumber + " - " + parameterTitle);
         String actionParameterLocator =
-                "//div[contains(@class,'action-" +
-                        (actionNumber - 1) +
-                        "')]//input[not(ancestor::div[@class='form-group'])]";
+                    "//div[contains(@class,'action-" +
+                    (actionNumber - 1) +
+                    "')]//input[not(ancestor::div[@class='form-group'])]";
         WebElement actionParameterObj = driver.findElement(By.xpath(actionParameterLocator));
         setTextFieldValue(actionParameterObj, parameterValue);
     }
@@ -371,9 +372,9 @@ public class SimulationPage extends BasePage {
     public void addGetValue(int actionNumber) {
         Log.info("  - Adding 1 new getValue parameter for Action no " + actionNumber);
         String getValueAddButtonLocator =
-                "//div[contains(@class,'action-" +
-                        (actionNumber - 1) +
-                        "')]//label[text()='getValue']//parent::div//i[contains(@class,'fa-plus')]";
+                    "//div[contains(@class,'action-" +
+                    (actionNumber - 1) +
+                    "')]//label[text()='getValue']//parent::div//i[contains(@class,'fa-plus')]";
         WebElement getValueAddButtonObj = driver.findElement(By.xpath(getValueAddButtonLocator));
         clickOnElement(getValueAddButtonObj);
         waitABit(200);
@@ -419,5 +420,79 @@ public class SimulationPage extends BasePage {
                     "')]";
         WebElement getValueRemoveButtonObj = driver.findElement(By.xpath(getValueRemoveButtonLocator));
         setTextFieldValue(getValueRemoveButtonObj, fieldValue);
+    }
+
+    public String getActionBasicParameterValue(int actionNumber, String parameterTitle) {
+        String parameterLocator =
+                "//div[contains(@class,'action-" +
+                        (actionNumber - 1) +
+                        "')]//label[text()='" +
+                        parameterTitle +
+                        "'][not(ancestor::div[@class='nested'])]//parent::div//input";
+        WebElement parameterObj = driver.findElement(By.xpath(parameterLocator));
+        return getValueAttrValue(parameterObj);
+    }
+
+    public String getActionStringParameterValue(int actionNumber) {
+        String stringParameterLocator =
+                "//div[contains(@class,'action-" +
+                        (actionNumber - 1) +
+                        "')]//input[not(ancestor::div[@class='form-group'])]";
+        WebElement stringParameterObj = driver.findElement(By.xpath(stringParameterLocator));
+        return getValueAttrValue(stringParameterObj);
+    }
+
+    public LinkedHashMap<String, String> getActionMultiValueParameterValue(int actionNumber, String mainParamName) {
+        LinkedHashMap<String, String> multiValueMap = new LinkedHashMap<>();
+
+        String inputLocators =
+                "//div[contains(@class,'action-" +
+                        (actionNumber - 1) +
+                        "')]//label[text()='" +
+                        mainParamName +
+                        "']//parent::div//input";
+        List<WebElement> inputObjs = driver.findElements(By.xpath(inputLocators));
+        for (WebElement inputObj: inputObjs) {
+            String inputValue = getValueAttrValue(inputObj);
+            String inputTitle = inputObj.getAttribute("class").split(mainParamName)[1].split("-")[1];
+
+            multiValueMap.put(inputTitle, inputValue);
+        }
+        return multiValueMap;
+    }
+
+    public List<LinkedHashMap<String, String>> getActionGetValueParameterValue(int actionNumber) {
+        List<LinkedHashMap<String, String>> multiValueList = new ArrayList<>();
+
+        for (int i = 0; i < getNumberOfGetValueRows(actionNumber); i++) {
+            LinkedHashMap<String, String> rowValuesMap = new LinkedHashMap<>();
+            String int1Locator = "//div[contains(@class,'action-" +
+                    (actionNumber - 1) +
+                    "')]//input[contains(@class,'action-argument-1-getValue-" +
+                    i +
+                    "-_1')]";
+            String int2Locator = "//div[contains(@class,'action-" +
+                    (actionNumber - 1) +
+                    "')]//input[contains(@class,'action-argument-1-getValue-" +
+                    i +
+                    "-_2')]";
+            WebElement int1Obj = driver.findElement(By.xpath(int1Locator));
+            WebElement int2Obj = driver.findElement(By.xpath(int2Locator));
+            String int1Value = getValueAttrValue(int1Obj);
+            String int2Value = getValueAttrValue(int2Obj);
+
+            rowValuesMap.put("int1", int1Value);
+            rowValuesMap.put("int2", int2Value);
+            multiValueList.add(rowValuesMap);
+        }
+        return multiValueList;
+    }
+
+    private int getNumberOfGetValueRows(int actionNumber) {
+        String getValueRowLocator =
+                "//div[contains(@class,'action-" +
+                        (actionNumber - 1) +
+                        "')]//label[text()='getValue']//parent::div//div[@class='form-group']";
+        return driver.findElements(By.xpath(getValueRowLocator)).size();
     }
 }

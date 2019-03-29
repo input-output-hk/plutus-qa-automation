@@ -2,12 +2,12 @@ package io.iohk.dataModels;
 
 import io.iohk.utils.Log;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class ActionParameter {
     private String title;
-    private List<HashMap<String, String>> value;
+    private List<LinkedHashMap<String, String>> value;
     private String type;
 
     public String getTitle() {
@@ -19,11 +19,11 @@ public class ActionParameter {
         this.title = title;
     }
 
-    public List<HashMap<String, String>> getValue() {
+    public List<LinkedHashMap<String, String>> getValue() {
         return value;
     }
 
-    public void setValue(List<HashMap<String, String>> value) {
+    public void setValue(List<LinkedHashMap<String, String>> value) {
         Log.info("  - Reading Action Parameter value as: " + value);
         this.value = value;
     }

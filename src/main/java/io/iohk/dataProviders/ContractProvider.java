@@ -159,21 +159,21 @@ public class ContractProvider{
 
             switch (actionParameter.getType()) {
                 case "basic":
-                    HashMap<String, String> valueParamMap = new HashMap<>();
+                    LinkedHashMap<String, String> valueParamMap = new LinkedHashMap<>();
                     valueParamMap.put(entry.getKey(), entry.getValue().get("value").asText());
                     actionParameter.setValue(Collections.singletonList(valueParamMap));
                     break;
                 case "string":
-                    HashMap<String, String> valueParamMap1 = new HashMap<>();
+                    LinkedHashMap<String, String> valueParamMap1 = new LinkedHashMap<>();
                     valueParamMap1.put(entry.getKey(), entry.getValue().get("value").asText());
                     actionParameter.setValue(Collections.singletonList(valueParamMap1));
                     break;
                 case "multivalue":
-                    List<HashMap<String, String>> multiValueList = new ArrayList<>();
+                    List<LinkedHashMap<String, String>> multiValueList = new ArrayList<>();
                     ArrayNode valuesNode = (ArrayNode) entry.getValue().get("value");
                     if (valuesNode != null && valuesNode.isArray()) {
                         for (JsonNode multiValuesNode: valuesNode) {
-                            HashMap<String, String> multiValueParamMap = new HashMap<>();
+                            LinkedHashMap<String, String> multiValueParamMap = new LinkedHashMap<>();
                             Iterator<Map.Entry<String, JsonNode>> multiValueIterator = multiValuesNode.fields();
                             while (multiValueIterator.hasNext()) {
                                 Map.Entry<String, JsonNode> valueEntry = multiValueIterator.next();
