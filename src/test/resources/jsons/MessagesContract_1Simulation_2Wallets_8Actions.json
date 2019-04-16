@@ -12,7 +12,7 @@
               "logAMessage",
               "submitInvalidTxn",
               "throwWalletAPIError",
-              "payToPublicKey_"
+              "payToWallet_"
             ],
             "actions": [
               {
@@ -33,7 +33,7 @@
                 }
               },
               {
-                "title": "payToPublicKey_",
+                "title": "payToWallet_",
                 "parameters": {
                   "ivTo": {
                     "value": 15,
@@ -43,20 +43,11 @@
                     "value": 16,
                     "type": "basic"
                   },
-                  "getValue": {
-                    "type": "multivalue",
-                    "value": [
-                      {
-                        "int1": 17,
-                        "int2": 18
-                      },
-                      {
-                        "int1": 19,
-                        "int2": 20
-                      }
-                    ]
+                  "Value": {
+                    "type": "basic",
+                    "value": 20
                   },
-                  "getPubKey": {
+                  "getWallet": {
                     "value": 21,
                     "type": "basic"
                   }
@@ -72,7 +63,7 @@
               "logAMessage",
               "submitInvalidTxn",
               "throwWalletAPIError",
-              "payToPublicKey_"
+              "payToWallet_"
             ],
             "actions": [
               {
@@ -93,7 +84,7 @@
                 }
               },
               {
-                "title": "payToPublicKey_",
+                "title": "payToWallet_",
                 "parameters": {
                   "ivTo": {
                     "value": 15,
@@ -103,20 +94,11 @@
                     "value": 16,
                     "type": "basic"
                   },
-                  "getValue": {
-                    "type": "multivalue",
-                    "value": [
-                      {
-                        "int1": 17,
-                        "int2": 18
-                      },
-                      {
-                        "int1": 19,
-                        "int2": 20
-                      }
-                    ]
+                  "Value": {
+                    "type": "basic",
+                    "value": 17
                   },
-                  "getPubKey": {
+                  "getWallet": {
                     "value": 21,
                     "type": "basic"
                   }

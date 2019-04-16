@@ -16,7 +16,7 @@ public class GeneralMethods extends BaseTest {
     private final String GETTING_STARTED_URL =
             "https://testnet.iohkdev.io/plutus/get-started/writing-contracts-in-plutus/";
     private final String TUTORIAL_URL =
-            "https://github.com/input-output-hk/plutus/blob/4c1bc1ebfb927b064c01ee12b91609ab505c8212/wallet-api/tutorial/Tutorial.md";
+            "https://github.com/input-output-hk/plutus/tree/3785ed43fe66b59bb8ea3378c7942dfb0015e975/plutus-tutorial/tutorial/Tutorial";
     private final String API_URL =
             "https://input-output-hk.github.io/plutus/";
     private final String PRIVACY_URL =
@@ -52,6 +52,9 @@ public class GeneralMethods extends BaseTest {
     private void evaluateSimulationAndWaitSuccess() {
         Log.info("Waiting for Simulation to be successfully evaluated...");
         simulationPage.clickEvaluateBtn();
+
+        mainPage.waitABit(20000);
+
         simulationPage.waitEvaluateSuccess();
     }
 
@@ -132,8 +135,6 @@ public class GeneralMethods extends BaseTest {
                                 split(":")[0];
 
                         expectedFunctionsList.add(el);
-
-                        System.out.println("el: " + el);
                     }
 
                     System.out.println("actionFunctionsList: " + actionFunctionsList);
@@ -407,7 +408,7 @@ public class GeneralMethods extends BaseTest {
 
                 Assert.assertEquals(wallet.getBalance(), simulationPage.getWalletBalance(wallet.getTitle()),
                         "ERROR: Wallet's balance is different than expected for wallet: " + wallet.getTitle());
-                Assert.assertEquals(wallet.getCurrency(), simulationPage.getWalletCurrency(wallet.getTitle()),
+                Assert.assertEquals(wallet.getCurrency().toLowerCase(), simulationPage.getWalletCurrency(wallet.getTitle()).toLowerCase(),
                         "ERROR: Wallet's currency is different than expected for wallet: " + wallet.getTitle());
 
                 if (wallet.getAvailableFunctionsList() != null) {

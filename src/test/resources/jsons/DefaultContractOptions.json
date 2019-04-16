@@ -10,7 +10,7 @@
             "availableFunctions": [
               "scheduleCollection",
               "contribute",
-              "payToPublicKey_"
+              "payToWallet_"
             ],
             "actions": [
               {
@@ -42,7 +42,7 @@
                 }
               },
               {
-                "title": "payToPublicKey_",
+                "title": "payToWallet_",
                 "parameters": {
                   "ivTo": 2,
                   "ivFrom": 2,
@@ -68,7 +68,7 @@
             "availableFunctions": [
               "scheduleCollection",
               "contribute",
-              "payToPublicKey_"
+              "payToWallet_"
             ],
             "actions": [
               {
@@ -87,7 +87,7 @@
                 "getAda": 1
               },
               {
-                "title": "payToPublicKey_",
+                "title": "payToWallet_",
                 "ivTo": 1,
                 "ivFrom": 1,
                 "getValue": [
@@ -115,7 +115,7 @@
       ],
       "guess": [],
       "startGame": [],
-      "payToPublicKey_": [
+      "payToWallet_": [
         "ivTo",
         "ivFrom",
         "getValue",
@@ -128,7 +128,7 @@
       "logAMessage": [],
       "submitInvalidTxn": [],
       "throwWalletAPIError": [],
-      "payToPublicKey_": [
+      "payToWallet_": [
         "ivTo",
         "ivFrom",
         "getValue",
@@ -178,7 +178,7 @@
         ],
         "getAda": []
       },
-      "payToPublicKey_": [
+      "payToWallet_": [
         "ivTo",
         "ivFrom",
         "getValue",

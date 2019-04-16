@@ -12,7 +12,7 @@
               "vestFunds",
               "registerVestingScheme",
               "withdraw",
-              "payToPublicKey_"
+              "payToWallet_"
             ],
             "actions": [
               {
@@ -101,7 +101,7 @@
                 }
               },
               {
-                "title": "payToPublicKey_",
+                "title": "payToWallet_",
                 "parameters": {
                   "ivTo": {
                     "value": 15,
@@ -111,20 +111,11 @@
                     "value": 16,
                     "type": "basic"
                   },
-                  "getValue": {
-                    "type": "multivalue",
-                    "value": [
-                      {
-                        "int1": 17,
-                        "int2": 18
-                      },
-                      {
-                        "int1": 19,
-                        "int2": 20
-                      }
-                    ]
+                  "Value": {
+                    "type": "basic",
+                    "value": 18
                   },
-                  "getPubKey": {
+                  "getWallet": {
                     "value": 21,
                     "type": "basic"
                   }
@@ -140,7 +131,7 @@
               "vestFunds",
               "registerVestingScheme",
               "withdraw",
-              "payToPublicKey_"
+              "payToWallet_"
             ],
             "actions": [
               {
@@ -229,7 +220,7 @@
                 }
               },
               {
-                "title": "payToPublicKey_",
+                "title": "payToWallet_",
                 "parameters": {
                   "ivTo": {
                     "value": 17,
@@ -239,20 +230,11 @@
                     "value": 18,
                     "type": "basic"
                   },
-                  "getValue": {
-                    "type": "multivalue",
-                    "value": [
-                      {
-                        "int1": 19,
-                        "int2": 20
-                      },
-                      {
-                        "int1": 21,
-                        "int2": 22
-                      }
-                    ]
+                  "Value": {
+                    "type": "basic",
+                    "value": 20
                   },
-                  "getPubKey": {
+                  "getWallet": {
                     "value": 23,
                     "type": "basic"
                   }

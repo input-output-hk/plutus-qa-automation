@@ -25,7 +25,7 @@ Technologies used: Java, TestNG, Selenium, Maven, Log4j.
         - basic - EX: crowdfunding/contribute/campaignDeadline - 1 parameter with 1 value besides it
         - string - EX: game/guess - 1 parameter with an input field besides it (not title for the field)
         - multivalue 
-            - EX - crowdfunding/payToPublicKey_/getValue - 1 parameter with multiple rows with multiple input values per row
+            - EX - crowdfunding/payToWallet_/getValue - 1 parameter with multiple rows with multiple input values per row
             - EX - vesting/vestFunds/vestingTranche2 - 1 parameter with multiple secondary parameters besides it 
     - if you want to add the same Simulation or Wallet more than 1 times, make sure to add the "addMultipleTimes" parameter to it
         - EX: CrowdfundigContract_2Simulations_15Wallets.json

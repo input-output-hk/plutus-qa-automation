@@ -34,7 +34,7 @@
           ]
         },
         {
-          "payToPublicKey_": [
+          "payToWallet_": [
             {
               "ivTo": 2,
               "ivFrom": 2,
@@ -69,7 +69,7 @@
         "campaignOwner",
         "getAda"
       ],
-      "payToPublicKey_": [
+      "payToWallet_": [
         "ivTo",
         "ivFrom",
         "getValue",
@@ -84,7 +84,7 @@
       ],
       "guess": [],
       "startGame": [],
-      "payToPublicKey_": [
+      "payToWallet_": [
         "ivTo",
         "ivFrom",
         "getValue",
@@ -97,7 +97,7 @@
       "logAMessage": [],
       "submitInvalidTxn": [],
       "throwWalletAPIError": [],
-      "payToPublicKey_": [
+      "payToWallet_": [
         "ivTo",
         "ivFrom",
         "getValue",
@@ -147,7 +147,7 @@
         ],
         "getAda": []
       },
-      "payToPublicKey_": [
+      "payToWallet_": [
         "ivTo",
         "ivFrom",
         "getValue",

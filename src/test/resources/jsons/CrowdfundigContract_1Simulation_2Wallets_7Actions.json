@@ -11,7 +11,7 @@
             "availableFunctions": [
               "scheduleCollection",
               "contribute",
-              "payToPublicKey_"
+              "payToWallet_"
             ],
             "actions": [
               {
@@ -82,7 +82,7 @@
                 }
               },
               {
-                "title": "payToPublicKey_",
+                "title": "payToWallet_",
                 "parameters": {
                   "ivTo": {
                     "value": 2,
@@ -92,20 +92,11 @@
                     "value": 2,
                     "type": "basic"
                   },
-                  "getValue": {
-                    "type": "multivalue",
-                    "value": [
-                      {
-                        "int1": 21,
-                        "int2": 22
-                      },
-                      {
-                        "int1": 23,
-                        "int2": 24
-                      }
-                    ]
+                  "Value": {
+                    "type": "basic",
+                    "value": 24
                   },
-                  "getPubKey": {
+                  "getWallet": {
                     "value": 2,
                     "type": "basic"
                   }
@@ -120,7 +111,7 @@
             "availableFunctions": [
               "scheduleCollection",
               "contribute",
-              "payToPublicKey_"
+              "payToWallet_"
             ],
             "actions": [
               {
@@ -170,7 +161,7 @@
                 }
               },
               {
-                "title": "payToPublicKey_",
+                "title": "payToWallet_",
                 "parameters": {
                   "ivTo": {
                     "value": 3,
@@ -180,20 +171,11 @@
                     "value": 3,
                     "type": "basic"
                   },
-                  "getValue": {
-                    "type": "multivalue",
-                    "value": [
-                      {
-                        "int1": 11,
-                        "int2": 12
-                      },
-                      {
-                        "int1": 13,
-                        "int2": 14
-                      }
-                    ]
+                  "Value": {
+                    "type": "basic",
+                    "value": 12
                   },
-                  "getPubKey": {
+                  "getWallet": {
                     "value": 3,
                     "type": "basic"
                   }

@@ -174,7 +174,7 @@ public class SimulationPage extends BasePage {
         String walletCurrencyLocator =
                     "//div[contains(@class,'wallet-')][contains(., '" +
                     walletTitle +
-                    "')]//div[@class='col'][1]";
+                    "')]//label[contains(@class,'col-form-label')]";
         WebElement walletCurrencyObj = driver.findElement(By.xpath(walletCurrencyLocator));
         return getTextFieldValue(walletCurrencyObj);
     }
