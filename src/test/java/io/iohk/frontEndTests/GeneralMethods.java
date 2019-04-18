@@ -8,9 +8,6 @@ import org.testng.Assert;
 
 import java.util.*;
 
-import static io.iohk.dataProviders.DefaultContractOptionsProvider.readDefaultContractValuesFromJson;
-
-
 public class GeneralMethods extends BaseTest {
 
     private final String GETTING_STARTED_URL =
@@ -23,10 +20,6 @@ public class GeneralMethods extends BaseTest {
             "https://static.iohk.io/docs/data-protection/iohk-data-protection-gdpr-policy.pdf";
     private final String WALLET_CURRENCY = "ADA";
     private final int WALLET_INIT_BALANCE = 10;
-
-    private HashMap<String, Object> readDefaultContractOptionsFromJson(String contractName) throws Exception {
-        return readDefaultContractValuesFromJson(contractName);
-    }
 
     protected void compileSpecificSmartContract(Enums.SmartContract smartContractName) {
         Log.info("Compiling specific smart contract... - " + smartContractName);
@@ -52,9 +45,6 @@ public class GeneralMethods extends BaseTest {
     private void evaluateSimulationAndWaitSuccess() {
         Log.info("Waiting for Simulation to be successfully evaluated...");
         simulationPage.clickEvaluateBtn();
-
-        mainPage.waitABit(20000);
-
         simulationPage.waitEvaluateSuccess();
     }
 
@@ -75,91 +65,6 @@ public class GeneralMethods extends BaseTest {
         mainPage.clickTransactionsBtn();
         Assert.assertTrue(transactionsPage.checkIfNoEvalueatedContractDisplayed(),
                 "Error: 'No evaluated message' is not displayed inside the Transactions tab.");
-    }
-
-    protected void checkDefaultContractValues(Enums.SmartContract smartContract) throws Exception {
-        checkDefaultWalletValues(smartContract);
-        checkDefaultActionsValues(smartContract);
-    }
-
-    private void checkDefaultWalletValues(Enums.SmartContract smartContract) throws Exception {
-        Log.info("--- Checking the default Wallet values ---");
-        HashMap<String, Object> defaultContractValues = readDefaultContractOptionsFromJson(smartContract.toString());
-        List<String> expectedWalletFunctions = new ArrayList<>(defaultContractValues.keySet());
-
-        List<String> walletTitlesList = simulationPage.getWalletTitlesList();
-        Assert.assertEquals(walletTitlesList.size(), 2, "Unexpected number of configured wallets;");
-        for (String walletTitle : walletTitlesList) {
-            Assert.assertEquals(simulationPage.getWalletCurrency(walletTitle).trim(), WALLET_CURRENCY,
-                    "Wallet's currency is different than expected for wallet: " + walletTitle);
-            Assert.assertEquals(simulationPage.getWalletBalance(walletTitle), WALLET_INIT_BALANCE,
-                    "Wallet's initial balance is different than expected for wallet: " + walletTitle);
-            List<String> walletFunctionsList = simulationPage.getWalletFunctionsByTitleList(walletTitle);
-            Assert.assertTrue(simulationPage.complexCompareLists(expectedWalletFunctions, walletFunctionsList),
-                    "Available functions are different than expected for wallet: " + walletTitle);
-        }
-    }
-
-    private void checkDefaultActionsValues(Enums.SmartContract smartContract) throws Exception {
-        HashMap<String, Object> defaultContractValues = readDefaultContractOptionsFromJson(smartContract.toString());
-
-        List<String> walletTitlesList = simulationPage.getWalletTitlesList();
-        for (String walletTitle : walletTitlesList) {
-            List<String> walletFunctionsList = simulationPage.getWalletFunctionsByTitleList(walletTitle);
-            for (String walletFunction : walletFunctionsList) {
-                Log.info("  --- Checking the default Action values for Action: ---  " + walletFunction);
-                simulationPage.createAction(walletTitle, walletFunction);
-                int numberOfConfiguredActions = simulationPage.getActionTitlesList().size();
-                Log.info("Getting the functions for Action number: " + numberOfConfiguredActions + " - " + walletFunction);
-                List<String> actionFunctionsList = simulationPage.getActionByNumberFunctionsList(numberOfConfiguredActions);
-                LinkedList<String> expectedFunctionsList = new LinkedList<>();
-
-                if (smartContract == Enums.SmartContract.VESTING) {
-
-                    LinkedList<String> partialFunctionsList = new LinkedList<>(Arrays.asList(defaultContractValues.get(walletFunction).
-                            toString().
-                            replaceAll("\"", "").
-                            replaceAll("]", "").
-                            replaceAll("\\[", "")
-                            .split(",")));
-
-//                     cred ca mai bine fac un test cu o clasa si cum sa tranform din json in acea clasa...
-
-                    for (String element : partialFunctionsList) {
-                        String el = element.
-                                replaceAll("\\{", "").
-                                replaceAll("}", "").
-                                replaceAll("]", "").
-                                replaceAll("\\[", "").
-                                replaceAll("\"", "").
-                                split(":")[0];
-
-                        expectedFunctionsList.add(el);
-                    }
-
-                    System.out.println("actionFunctionsList: " + actionFunctionsList);
-                    System.out.println("partialFunctionsList: " + partialFunctionsList);
-                    System.out.println("expectedFunctionsList: " + expectedFunctionsList);
-                    System.out.println("defaultContractValues.get(walletFunction): " + defaultContractValues.get(walletFunction));
-
-
-                } else {
-                    expectedFunctionsList = new LinkedList<>(Arrays.asList(defaultContractValues.get(walletFunction).
-                            toString().
-                            replaceAll("\"", "").
-                            replaceAll("]", "").
-                            replaceAll("\\[", "")
-                            .split(",")));
-                }
-
-                if (expectedFunctionsList.size() == 1 && expectedFunctionsList.get(0).equals("")) {
-                    expectedFunctionsList.remove(0);
-                }
-
-                Assert.assertTrue(simulationPage.complexCompareLists(expectedFunctionsList, actionFunctionsList),
-                        "Action functions are different than expected.");
-            }
-        }
     }
 
     protected void createActionsForEachWalletFunction(Enums.SmartContract smartContract) {
@@ -281,7 +186,7 @@ public class GeneralMethods extends BaseTest {
 
     protected void evaluateContractFromScenario(Contract contract) {
         Log.debug("Compile the Contract");
-        compileSpecificSmartContract(Enums.SmartContract.valueOf(contract.getTitle()));
+        compileSpecificSmartContract(Enums.SmartContract.valueOf(contract.getTitle().toUpperCase()));
 
         Log.debug("Create the Contract from provided scenario - " + contract.getTitle());
         createContractFromScenario(contract);
@@ -360,6 +265,10 @@ public class GeneralMethods extends BaseTest {
         Log.info("Fill the Action Parameters values from the provided JSON Scenario");
         for (ActionParameter parameter : actionParameterList) {
             switch (parameter.getType()) {
+                case "wait":
+                    simulationPage.fillWaitActionParameters(action.getNumber(), parameter.getTitle(),
+                            parameter.getValue().get(0).values().toArray()[0].toString());
+                    break;
                 case "basic":
                     simulationPage.fillBasicActionParameters(action.getNumber(), parameter.getTitle(),
                             parameter.getValue().get(0).values().toArray()[0].toString());

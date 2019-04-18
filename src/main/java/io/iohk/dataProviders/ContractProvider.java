@@ -18,12 +18,24 @@ import static io.iohk.utils.FilesUtils.readJson;
 
 public class ContractProvider{
 
-    public static Contract readContractFromJson(String dataSourceName, Enums.SmartContract smartContract) throws Exception {
+    public static Contract readContractFromJson(String dataSourceName) throws Exception {
+        String contractTitle = null;
+
         File f = getFileResource(dataSourceName);
         JsonNode rootJsonNode = readJson(f);
 
+        Log.info("=================== Start Reading JSON values =======================");
         if (rootJsonNode != null) {
-            return createContractFromJsonNode(rootJsonNode.path(smartContract.toString().toLowerCase()), smartContract.toString());
+            Log.info("Reading Contract values from JSON file...");
+            Contract contract = new Contract();
+
+            Iterator<String> fieldNames = rootJsonNode.fieldNames();
+            while (fieldNames.hasNext()) {
+                contractTitle = fieldNames.next();
+            }
+            contract.setTitle(contractTitle);
+
+            return createSimulationsFromJsonNode(rootJsonNode.path(contract.getTitle().toLowerCase()), contract);
         } else {
             Assert.fail("ERROR: Requested json file was not found");
         }
@@ -31,12 +43,7 @@ public class ContractProvider{
         return null;
     }
 
-    private static Contract createContractFromJsonNode(JsonNode contractNode, String smartContract) {
-        Log.info("=================== Start Reading JSON values =======================");
-        Log.info("Reading Contract values from JSON file...");
-        Contract contract = new Contract();
-        contract.setTitle(smartContract);
-
+    private static Contract createSimulationsFromJsonNode(JsonNode contractNode, Contract contract) {
         Log.info(" Reading Simulations values from JSON file...");
         ArrayNode simulationsNode = (ArrayNode) contractNode.path("simulations");
         if (simulationsNode != null && simulationsNode.isArray()) {
@@ -158,6 +165,11 @@ public class ContractProvider{
             actionParameter.setType(entry.getValue().get("type").asText());
 
             switch (actionParameter.getType()) {
+                case "wait":
+                    LinkedHashMap<String, String> waitParamMap = new LinkedHashMap<>();
+                    waitParamMap.put(entry.getKey(), entry.getValue().get("value").asText());
+                    actionParameter.setValue(Collections.singletonList(waitParamMap));
+                    break;
                 case "basic":
                     LinkedHashMap<String, String> valueParamMap = new LinkedHashMap<>();
                     valueParamMap.put(entry.getKey(), entry.getValue().get("value").asText());

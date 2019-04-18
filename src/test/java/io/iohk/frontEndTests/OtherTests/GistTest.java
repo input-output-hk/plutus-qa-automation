@@ -17,8 +17,8 @@ public class GistTest extends GeneralMethods {
     @DataProvider
     public Object[][] dataProviderScenarios() {
         return new Object[][] {
-                { "/jsons/CrowdfundigContract_1Simulation_2Wallets_7Actions.json", Enums.SmartContract.CROWDFUNDING},
-                { "/jsons/CrowdfundigContract_3Simulations_15Wallets.json", Enums.SmartContract.CROWDFUNDING}
+                { "/jsons/CrowdfundigContract_1Simulation_2Wallets_7Actions.json"},
+                { "/jsons/CrowdfundigContract_3Simulations_15Wallets.json"}
         };
     }
 
@@ -32,7 +32,7 @@ public class GistTest extends GeneralMethods {
         //      5. Compile another Demo contract - Vesting
         //      6. Load the previously created gist and check the Simulation tab values
 
-        Contract contract = ContractProvider.readContractFromJson(dataSoruce, smartContract);
+        Contract contract = ContractProvider.readContractFromJson(dataSoruce);
 
         Log.debug(" 1. Create and Evauate the scenarios from each provided JSON files");
         evaluateContractFromScenario(contract);

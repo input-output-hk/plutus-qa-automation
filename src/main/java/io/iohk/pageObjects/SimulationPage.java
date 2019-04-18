@@ -250,12 +250,16 @@ public class SimulationPage extends BasePage {
         }
     }
 
-    public void createAction(String walletTitle, String walletFunction) {
+    public void createAction(String walletTitle, String actionTitle) {
         // create action and wait for action to be displayed on UI
-        Log.info("  - Creating new action: " + walletTitle + ":" + walletFunction);
+        Log.info("  - Creating new action: " + walletTitle + ":" + actionTitle);
         int noOfConfiguredActions = getActionTitlesList().size();
         int expectedNoOfConfiguredActions = noOfConfiguredActions + 1;
-        clickWalletFunction(walletTitle, walletFunction);
+        if (!actionTitle.contains("wait")) {
+            clickWalletFunction(walletTitle, actionTitle);
+        } else {
+            clickAddWaitActionBtn();
+        }
         int count = 0;
         while (noOfConfiguredActions < expectedNoOfConfiguredActions) {
             noOfConfiguredActions = getActionTitlesList().size();
@@ -347,8 +351,20 @@ public class SimulationPage extends BasePage {
         Log.info("  - All actions were successfully closed");
     }
 
+    public void fillWaitActionParameters(int actionNumber, String parameterTitle, String parameterValue) {
+        Log.info("  - Set parameter value to: " + parameterValue + "; actionNo: " + actionNumber + " - " + parameterTitle);
+        String actionParameterLocator =
+                "//div[contains(@class,'action-" +
+                        (actionNumber - 1) +
+                        "')]//div[text()='" +
+                        parameterTitle +
+                        "'][not(ancestor::div[@class='nested'])]//parent::div//input";
+        WebElement actionParameterObj = driver.findElement(By.xpath(actionParameterLocator));
+        setTextFieldValue(actionParameterObj, parameterValue);
+    }
+
     public void fillBasicActionParameters(int actionNumber, String parameterTitle, String parameterValue) {
-        Log.info("  - Set parameter value: " + parameterValue + "; actionNo: " + actionNumber + " - " + parameterTitle);
+        Log.info("  - Set parameter value to: " + parameterValue + "; actionNo: " + actionNumber + " - " + parameterTitle);
         String actionParameterLocator =
                         "//div[contains(@class,'action-" +
                         (actionNumber - 1) +
