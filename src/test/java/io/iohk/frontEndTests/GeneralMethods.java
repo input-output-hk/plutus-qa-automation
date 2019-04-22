@@ -203,10 +203,12 @@ public class GeneralMethods extends BaseTest {
     }
 
     private void checkTransactionTabValues() {
+        Log.info("==================== Start Checking Transactions Tab values ========================");
         Log.info("Check that there are no errors inside the Transaction tab");
         Assert.assertEquals(transactionsPage.getErrorsList().size(), 0,
                 "ERROR: There are " + transactionsPage.getErrorsList().size() + " errors on the Transaction page: " +
                         transactionsPage.getErrorsList());
+        Log.info("==================== End Checking Transactions Tab values ========================");
     }
 
     private void evaluateAllSimulations(List<Simulation> simulationList) {
@@ -338,19 +340,19 @@ public class GeneralMethods extends BaseTest {
                     }
                     Assert.assertTrue(mainPage.complexCompareLists(walletFunctionsList, simulationPage.getWalletFunctionsByTitleList(wallet.getTitle())),
                             "ERROR: Wallet's available functions are different than expected for wallet: " + wallet.getTitle());
-
-                    List<String> actionTitlesList = simulationPage.getActionTitlesList();
-                    List<String> notMatchingActionTitles = checkActionTitlesFormat(actionTitlesList, walletFunctionsList);
-                    Assert.assertEquals(notMatchingActionTitles.size(), 0,
-                            "ERROR: Some Action titles does not have the expected format - " + notMatchingActionTitles);
                 }
 
             for (Action action: simulation.getActionsList()) {
                 Log.info("  --- Checking the values for Action Number: " + action.getActionNumber() + " - " + action.getTitle());
 
-                Assert.assertEquals(simulationPage.getActionTitleByNumber(action.getActionNumber()),
-                        "Wallet #" + action.getWalletNumber() + ": " + action.getTitle(),
-                        "ERROR: Action title is different than expected");
+                if (!action.getTitle().contains("wait")) {
+                    Assert.assertEquals(simulationPage.getActionTitleByNumber(action.getActionNumber()),
+                            "Wallet #" + action.getWalletNumber() + ": " + action.getTitle(),
+                            "ERROR: Action title is different than expected");
+                } else {
+                    Assert.assertEquals(simulationPage.getActionTitleByNumber(action.getActionNumber()), "Wait",
+                            "ERROR: Action title is different than expected");
+                }
 
                 for (ActionParameter parameter: action.getActionParametersList()) {
                     Log.info("    - Checking the value of parameter: " + parameter.getTitle());

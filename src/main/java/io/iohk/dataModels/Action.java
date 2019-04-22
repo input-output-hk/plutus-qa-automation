@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Action {
     private String title;
-    private int walletNumber;
+    private int walletNumber = 0;
     private int actionNumber;
     private List<ActionParameter> actionParametersList = null;
 

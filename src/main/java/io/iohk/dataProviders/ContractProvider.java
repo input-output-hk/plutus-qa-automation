@@ -149,7 +149,9 @@ public class ContractProvider{
         for (JsonNode actionNode : actionsNode) {
             Action action = new Action();
             action.setTitle(actionNode.get("title").asText());
-            action.setWalletNumber(actionNode.get("walletNo").asInt());
+            if (!action.getTitle().contains("wait")) {
+                action.setWalletNumber(actionNode.get("walletNo").asInt());
+            }
 
             JsonNode actionParametersNode = actionNode.path("parameters");
             if (actionParametersNode != null) {
