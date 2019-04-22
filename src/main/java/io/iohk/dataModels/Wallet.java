@@ -9,7 +9,6 @@ public class Wallet {
     private String currency;
     private int balance;
     private List<WalletFunction> availableFunctionsList = null;
-    private List<Action> actionsList = null;
 
     public String getTitle() {
         return title;
@@ -45,14 +44,5 @@ public class Wallet {
     public void setAvailableFunctionsList(List<WalletFunction> availableFunctionsList) {
         Log.info("  - Reading wallet availableFunctionsList as: " + availableFunctionsList);
         this.availableFunctionsList = availableFunctionsList;
-    }
-
-    public List<Action> getActionsList() {
-        return actionsList;
-    }
-
-    public void setActionsList(List<Action> actionsList) {
-        Log.info("  - Reading wallet actionsList as: " + actionsList);
-        this.actionsList = actionsList;
     }
 }

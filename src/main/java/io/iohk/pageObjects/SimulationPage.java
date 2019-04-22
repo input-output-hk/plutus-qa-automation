@@ -1,5 +1,6 @@
 package io.iohk.pageObjects;
 
+import io.iohk.dataModels.Action;
 import io.iohk.utils.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -45,6 +46,9 @@ public class SimulationPage extends BasePage {
 
     @FindBy(xpath = "//i[contains(@class,'fa-spinner')]")
     private WebElement btnEvaluateSpinner;
+
+    @FindBy(xpath = "//div[contains(@class,'alert-danger')]")
+    private WebElement txtEvaluationError;
 
     public SimulationPage(WebDriver driver) {
         this.driver = driver;
@@ -129,6 +133,10 @@ public class SimulationPage extends BasePage {
         clickOnElement(btnEvaluate);
     }
 
+    public String getEvaluationError() {
+        return getTextFieldValue(txtEvaluationError);
+    }
+
     private boolean getEvaluationStatus() {
         waitForElementToBeVisible(btnEvaluateSuccess, DEFAULT_WAIT_ELEMENT_TIMEOUT);
         if (checkIfWebElementIsDisplayed(btnEvaluateSuccess)) {
@@ -141,7 +149,10 @@ public class SimulationPage extends BasePage {
 
     public void waitEvaluateSuccess() {
         waitForElementToBeVisible(btnEvaluateSuccess, DEFAULT_WAIT_ELEMENT_TIMEOUT);
-        Assert.assertTrue(getEvaluationStatus(), "Error: Evaluate action was not successful.");
+        if (!getEvaluationStatus()) {
+            Log.error("Evaluation error: " + getEvaluationError());
+        }
+        Assert.assertTrue(getEvaluationStatus(), "Error: Evaluate action was not successful");
     }
 
     public ArrayList<String> getWalletTitlesList() {
@@ -228,7 +239,8 @@ public class SimulationPage extends BasePage {
         return walletFunctionsList;
     }
 
-    private void clickWalletFunction(String walletTitle, String functionTitle) {
+    private void clickWalletFunction(int walletnumber, String functionTitle) {
+        String walletTitle = "Wallet #" + walletnumber;
         Log.info("  - Clicking on '" + functionTitle + "' function for wallet: " + walletTitle);
         String walletFunctionLocator =
                      "//div[contains(@class,'wallet-')][contains(., '" +
@@ -250,13 +262,13 @@ public class SimulationPage extends BasePage {
         }
     }
 
-    public void createAction(String walletTitle, String actionTitle) {
-        // create action and wait for action to be displayed on UI
-        Log.info("  - Creating new action: " + walletTitle + ":" + actionTitle);
+    public void createAction(int walletNumber, String actionTitle) {
+        // create Action and wait for Action to be displayed on UI
+//        Log.info("  - Creating new action: " + walletTitle + ":" + actionTitle);
         int noOfConfiguredActions = getActionTitlesList().size();
         int expectedNoOfConfiguredActions = noOfConfiguredActions + 1;
         if (!actionTitle.contains("wait")) {
-            clickWalletFunction(walletTitle, actionTitle);
+            clickWalletFunction(walletNumber, actionTitle);
         } else {
             clickAddWaitActionBtn();
         }

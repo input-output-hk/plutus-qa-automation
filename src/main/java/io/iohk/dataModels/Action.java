@@ -6,8 +6,10 @@ import java.util.List;
 
 public class Action {
     private String title;
-    private int number;
+    private int walletNumber;
+    private int actionNumber;
     private List<ActionParameter> actionParametersList = null;
+
     public String getTitle() {
         return title;
     }
@@ -17,13 +19,21 @@ public class Action {
         this.title = title;
     }
 
-    public int getNumber() {
-        return number;
+    public int getActionNumber() {
+        return actionNumber;
     }
 
-    public void setNumber(int number) {
+    public void setActionNumber(int number) {
         Log.info("  - Set Action number to: " + number);
-        this.number = number;
+        this.actionNumber = number;
+    }
+
+    public int getWalletNumber() {
+        return walletNumber;
+    }
+
+    public void setWalletNumber(int walletNumber) {
+        this.walletNumber = walletNumber;
     }
 
     public List<ActionParameter> getActionParametersList() {

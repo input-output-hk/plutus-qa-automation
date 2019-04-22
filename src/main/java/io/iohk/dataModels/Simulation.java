@@ -7,6 +7,7 @@ import java.util.List;
 public class Simulation {
     private String title;
     private List<Wallet> walletsList = null;
+    private List<Action> actionsList = null;
 
     public String getTitle() {
         return title;
@@ -24,5 +25,13 @@ public class Simulation {
     public void setWalletsList(List<Wallet> walletsList) {
         Log.info("  - Reading Simulation walletList as: " + walletsList);
         this.walletsList = walletsList;
+    }
+
+    public List<Action> getActionsList() {
+        return actionsList;
+    }
+
+    public void setActionsList(List<Action> actionsList) {
+        this.actionsList = actionsList;
     }
 }

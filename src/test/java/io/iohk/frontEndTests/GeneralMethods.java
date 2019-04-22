@@ -73,7 +73,8 @@ public class GeneralMethods extends BaseTest {
         for (String walletTitle : walletTitlesList) {
             List<String> walletFunctionsList = simulationPage.getWalletFunctionsByNumberList((walletTitlesList.indexOf(walletTitle) + 1));
             for (String walletFunction : walletFunctionsList) {
-                simulationPage.createAction(walletTitle, walletFunction);
+                int walletNumber = Integer.parseInt(walletTitle.split("#")[1]);
+                simulationPage.createAction(walletNumber, walletFunction);
             }
         }
     }
@@ -184,7 +185,7 @@ public class GeneralMethods extends BaseTest {
         mainPage.waitPublishGistToFinish();
     }
 
-    protected void evaluateContractFromScenario(Contract contract) {
+    protected void evaluatePositiveContractFromScenario(Contract contract) {
         Log.debug("Compile the Contract");
         compileSpecificSmartContract(Enums.SmartContract.valueOf(contract.getTitle().toUpperCase()));
 
@@ -197,8 +198,15 @@ public class GeneralMethods extends BaseTest {
         Log.debug("Evaluate all the Simulations from the provided scenario");
         evaluateAllSimulations(contract.getSimulationsList());
 
-//        Log.debug("Check the Transaction tab values for each simulation");
-//        checkTransactionTabValues(contract);
+        Log.debug("Check the Transaction tab values for each simulation");
+        checkTransactionTabValues();
+    }
+
+    private void checkTransactionTabValues() {
+        Log.info("Check that there are no errors inside the Transaction tab");
+        Assert.assertEquals(transactionsPage.getErrorsList().size(), 0,
+                "ERROR: There are " + transactionsPage.getErrorsList().size() + " errors on the Transaction page: " +
+                        transactionsPage.getErrorsList());
     }
 
     private void evaluateAllSimulations(List<Simulation> simulationList) {
@@ -232,6 +240,9 @@ public class GeneralMethods extends BaseTest {
             List<Wallet> walletList = simulation.getWalletsList();
             createWallets(walletList);
 
+            List<Action> actionsList = simulation.getActionsList();
+            createActions(actionsList);
+
             count++;
         }
     }
@@ -242,19 +253,16 @@ public class GeneralMethods extends BaseTest {
             Log.info("  -- Creating Wallet - " + wallet.getTitle());
             simulationPage.clickAddWalletBtn();
             simulationPage.setWalletBalance(wallet.getTitle(), wallet.getBalance());
-
-            List<Action> actionList = wallet.getActionsList();
-            createActions(wallet, actionList);
         }
     }
 
-    private void createActions(Wallet wallet, List<Action> actionList) {
-        Log.info("Create the Wallet Actions from the provided JSON Scenario");
+    private void createActions(List<Action> actionList) {
+        Log.info("Create the Actions from the provided JSON Scenario");
         for (Action action : actionList) {
-            Log.info("  --- Creating Action: " + wallet.getTitle() + ": " + action.getTitle());
+            Log.info("  -- Creating Action: Wallet #" + action.getWalletNumber() + ": " + action.getTitle());
             int noOfPreExistingActions = simulationPage.getActionTitlesList().size();
-            simulationPage.createAction(wallet.getTitle(), action.getTitle());
-            action.setNumber(noOfPreExistingActions + 1);
+            simulationPage.createAction(action.getWalletNumber(), action.getTitle());
+            action.setActionNumber(noOfPreExistingActions + 1);
 
             List<ActionParameter> actionParameterList = action.getActionParametersList();
             fillActionParameters(action, actionParameterList);
@@ -266,15 +274,15 @@ public class GeneralMethods extends BaseTest {
         for (ActionParameter parameter : actionParameterList) {
             switch (parameter.getType()) {
                 case "wait":
-                    simulationPage.fillWaitActionParameters(action.getNumber(), parameter.getTitle(),
+                    simulationPage.fillWaitActionParameters(action.getActionNumber(), parameter.getTitle(),
                             parameter.getValue().get(0).values().toArray()[0].toString());
                     break;
                 case "basic":
-                    simulationPage.fillBasicActionParameters(action.getNumber(), parameter.getTitle(),
+                    simulationPage.fillBasicActionParameters(action.getActionNumber(), parameter.getTitle(),
                             parameter.getValue().get(0).values().toArray()[0].toString());
                     break;
                 case "string":
-                    simulationPage.fillStringActionParameters(action.getNumber(), parameter.getTitle(),
+                    simulationPage.fillStringActionParameters(action.getActionNumber(), parameter.getTitle(),
                             parameter.getValue().get(0).values().toArray()[0].toString());
                     break;
                 case "multivalue":
@@ -282,13 +290,13 @@ public class GeneralMethods extends BaseTest {
                     for (Map<String, String> valueMap: parameter.getValue()) {
                         Set<String> paramKeys = valueMap.keySet();
                         if (parameter.getTitle().equals("getValue")) {
-                            simulationPage.addGetValue(action.getNumber());
-                            simulationPage.fillGetValueParam(action.getNumber(), count2,1, valueMap.get("int1"));
-                            simulationPage.fillGetValueParam(action.getNumber(), count2,2, valueMap.get("int2"));
+                            simulationPage.addGetValue(action.getActionNumber());
+                            simulationPage.fillGetValueParam(action.getActionNumber(), count2,1, valueMap.get("int1"));
+                            simulationPage.fillGetValueParam(action.getActionNumber(), count2,2, valueMap.get("int2"));
                             count2 ++;
                         } else {
                             for (String secondParameter: paramKeys) {
-                                simulationPage.fillMultiValueParam(action.getNumber(), parameter.getTitle(),
+                                simulationPage.fillMultiValueParam(action.getActionNumber(), parameter.getTitle(),
                                         secondParameter, valueMap.get(secondParameter));
                             }
                         }
@@ -302,6 +310,9 @@ public class GeneralMethods extends BaseTest {
         Log.info("==================== Start Checking Simulation Tab values ========================");
         Log.info("Check all the configured values inside the Simulations tab");
         mainPage.clickbtnSimulationBtn();
+
+        Assert.assertEquals(simulationPage.getSimulationTitlesList().size(), contract.getSimulationsList().size(),
+                "ERROR: There is a different number of Simulations than expected inside the Simulations tab");
 
         List<String> simulationTitlesList = new ArrayList<>();
         List<Simulation> simulationList = contract.getSimulationsList();
@@ -317,8 +328,8 @@ public class GeneralMethods extends BaseTest {
 
                 Assert.assertEquals(wallet.getBalance(), simulationPage.getWalletBalance(wallet.getTitle()),
                         "ERROR: Wallet's balance is different than expected for wallet: " + wallet.getTitle());
-                Assert.assertEquals(wallet.getCurrency().toLowerCase(), simulationPage.getWalletCurrency(wallet.getTitle()).toLowerCase(),
-                        "ERROR: Wallet's currency is different than expected for wallet: " + wallet.getTitle());
+//                Assert.assertEquals(wallet.getCurrency().toLowerCase(), simulationPage.getWalletCurrency(wallet.getTitle()).toLowerCase(),
+//                        "ERROR: Wallet's currency is different than expected for wallet: " + wallet.getTitle());
 
                 if (wallet.getAvailableFunctionsList() != null) {
                     List<String> walletFunctionsList = new ArrayList<>();
@@ -334,45 +345,47 @@ public class GeneralMethods extends BaseTest {
                             "ERROR: Some Action titles does not have the expected format - " + notMatchingActionTitles);
                 }
 
-                for (Action action: wallet.getActionsList()) {
-                    Log.info("  --- Checking the values for Action Number: " + action.getNumber() + " - " + action.getTitle());
-                    Assert.assertEquals(simulationPage.getActionTitleByNumber(action.getNumber()), wallet.getTitle() + ": " + action.getTitle(),
-                            "ERROR: Action title is different than expected");
+            for (Action action: simulation.getActionsList()) {
+                Log.info("  --- Checking the values for Action Number: " + action.getActionNumber() + " - " + action.getTitle());
 
-                    for (ActionParameter parameter: action.getActionParametersList()) {
-                        Log.info("    - Checking the value of parameter: " + parameter.getTitle());
-                        switch (parameter.getType()) {
-                            case "basic":
-                                Assert.assertEquals(
-                                    simulationPage.getActionBasicParameterValue(action.getNumber(), parameter.getTitle()),
-                                    parameter.getValue().get(0).values().toArray()[0].toString(),
+                Assert.assertEquals(simulationPage.getActionTitleByNumber(action.getActionNumber()),
+                        "Wallet #" + action.getWalletNumber() + ": " + action.getTitle(),
+                        "ERROR: Action title is different than expected");
+
+                for (ActionParameter parameter: action.getActionParametersList()) {
+                    Log.info("    - Checking the value of parameter: " + parameter.getTitle());
+                    switch (parameter.getType()) {
+                        case "basic":
+                            Assert.assertEquals(
+                                simulationPage.getActionBasicParameterValue(action.getActionNumber(), parameter.getTitle()),
+                                parameter.getValue().get(0).values().toArray()[0].toString(),
+                                "ERROR: Parameter - " + parameter.getTitle() + " - has a different value than expected");
+                            break;
+                        case "string":
+                            Assert.assertEquals(parameter.getValue().get(0).get("inputString"),
+                                    simulationPage.getActionStringParameterValue(action.getActionNumber()),
                                     "ERROR: Parameter - " + parameter.getTitle() + " - has a different value than expected");
-                                break;
-                            case "string":
-                                Assert.assertEquals(parameter.getValue().get(0).get("inputString"),
-                                        simulationPage.getActionStringParameterValue(action.getNumber()),
-                                        "ERROR: Parameter - " + parameter.getTitle() + " - has a different value than expected");
-                                break;
-                            case "multivalue":
-                                int count = 0;
-                                if (parameter.getTitle().equals("getValue")) {
-                                    for (LinkedHashMap<String, String> rowValuesMap : parameter.getValue()) {
-                                        Assert.assertTrue(mainPage.compareLinkedHashMaps(
-                                                rowValuesMap,
-                                                simulationPage.getActionGetValueParameterValue(action.getNumber()).get(count)),
-                                                "ERROR: Parameter - " + parameter.getTitle() + " - has a different value than expected");
-                                        count++;
-                                    }
-                                } else {
+                            break;
+                        case "multivalue":
+                            int count = 0;
+                            if (parameter.getTitle().equals("getValue")) {
+                                for (LinkedHashMap<String, String> rowValuesMap : parameter.getValue()) {
                                     Assert.assertTrue(mainPage.compareLinkedHashMaps(
-                                            parameter.getValue().get(0),
-                                            simulationPage.getActionMultiValueParameterValue(action.getNumber(), parameter.getTitle())),
+                                            rowValuesMap,
+                                            simulationPage.getActionGetValueParameterValue(action.getActionNumber()).get(count)),
                                             "ERROR: Parameter - " + parameter.getTitle() + " - has a different value than expected");
+                                    count++;
                                 }
-                                break;
-                        }
+                            } else {
+                                Assert.assertTrue(mainPage.compareLinkedHashMaps(
+                                        parameter.getValue().get(0),
+                                        simulationPage.getActionMultiValueParameterValue(action.getActionNumber(), parameter.getTitle())),
+                                        "ERROR: Parameter - " + parameter.getTitle() + " - has a different value than expected");
+                            }
+                            break;
                     }
                 }
+            }
             }
             Assert.assertTrue(mainPage.complexCompareLists(walletTitlesList, simulationPage.getWalletTitlesList()),
                     "ERROR: The configured Simulations have different names than expected");

@@ -35,7 +35,7 @@ public class ContractProvider{
             }
             contract.setTitle(contractTitle);
 
-            return createSimulationsFromJsonNode(rootJsonNode.path(contract.getTitle().toLowerCase()), contract);
+            return readSimulationsFromJsonNode(rootJsonNode.path(contract.getTitle().toLowerCase()), contract);
         } else {
             Assert.fail("ERROR: Requested json file was not found");
         }
@@ -43,11 +43,11 @@ public class ContractProvider{
         return null;
     }
 
-    private static Contract createSimulationsFromJsonNode(JsonNode contractNode, Contract contract) {
+    private static Contract readSimulationsFromJsonNode(JsonNode contractNode, Contract contract) {
         Log.info(" Reading Simulations values from JSON file...");
         ArrayNode simulationsNode = (ArrayNode) contractNode.path("simulations");
         if (simulationsNode != null && simulationsNode.isArray()) {
-            contract.setSimulationsList(createListOfSimulationsFromJson2(simulationsNode));
+            contract.setSimulationsList(readListOfSimulationsFromJson(simulationsNode));
         } else {
             Assert.fail("ERROR: simulationsNode is null or it is not defined as Array; - " + simulationsNode);
         }
@@ -56,7 +56,7 @@ public class ContractProvider{
         return contract;
     }
 
-    private static List<Simulation> createListOfSimulationsFromJson2(ArrayNode simulationsNode) {
+    private static List<Simulation> readListOfSimulationsFromJson(ArrayNode simulationsNode) {
         Log.info(" Reading List of Simulation values from JSON file...");
         List<Simulation> simulationsList = new ArrayList<>();
 
@@ -74,19 +74,26 @@ public class ContractProvider{
 
                 ArrayNode walletsNode = (ArrayNode) simulationNode.get("wallets");
                 if (walletsNode != null && walletsNode.isArray()) {
-                    simulation.setWalletsList(createListOfWalletsFromJson(walletsNode));
+                    simulation.setWalletsList(readListOfWalletsFromJson(walletsNode));
                 } else {
                     Assert.fail("ERROR: walletsNode is null or it is not defined as Array; - " + simulationsNode);
                 }
-                simulationsList.add(simulation);
 
+                ArrayNode actionsNode = (ArrayNode) simulationNode.get("actions");
+                if (actionsNode != null && actionsNode.isArray()) {
+                    simulation.setActionsList(readListOfActionsFromJson(actionsNode));
+                } else {
+                    Assert.fail("ERROR: actionsNode is null or it is not defined as Array; - " + simulationsNode);
+                }
+
+                simulationsList.add(simulation);
                 noOfCreatedSimulations++;
             }
         }
         return simulationsList;
     }
 
-    private static List<Wallet> createListOfWalletsFromJson(ArrayNode walletsNode) {
+    private static List<Wallet> readListOfWalletsFromJson(ArrayNode walletsNode) {
         Log.info(" Reading List of Wallet values from JSON file...");
         List<Wallet> walletsList = new ArrayList<>();
 
@@ -106,26 +113,26 @@ public class ContractProvider{
 
                 ArrayNode availableFunctionsNode = (ArrayNode) walletNode.get("availableFunctions");
                 if (availableFunctionsNode != null && availableFunctionsNode.isArray()) {
-                    wallet.setAvailableFunctionsList(createListOfWalletFunctionsFromJson(availableFunctionsNode));
+                    wallet.setAvailableFunctionsList(readListOfWalletFunctionsFromJson(availableFunctionsNode));
                 } else {
                     Log.warn("WARNING: Wallet's availableFunctions node is not Array or it is null (it can be ok) - " + walletsNode);
                 }
 
-                ArrayNode actionsNode = (ArrayNode) walletNode.get("actions");
-                if (actionsNode != null && actionsNode.isArray()) {
-                    wallet.setActionsList(createListOfActionsFromJson(actionsNode));
-                } else {
-                    Assert.fail("ERROR: Wallet's Actions node is not Array or it is null - " + actionsNode);
-                }
-                walletsList.add(wallet);
+//                ArrayNode actionsNode = (ArrayNode) walletNode.get("actions");
+//                if (actionsNode != null && actionsNode.isArray()) {
+//                    wallet.setActionsList(createListOfActionsFromJson(actionsNode));
+//                } else {
+//                    Assert.fail("ERROR: Wallet's Actions node is not Array or it is null - " + actionsNode);
+//                }
 
+                walletsList.add(wallet);
                 noOfCreatedWallets ++;
             }
         }
         return walletsList;
     }
 
-    private static List<WalletFunction> createListOfWalletFunctionsFromJson(ArrayNode availableFunctionsNode) {
+    private static List<WalletFunction> readListOfWalletFunctionsFromJson(ArrayNode availableFunctionsNode) {
         Log.info(" Reading List of Wallet Available function values from JSON file...");
 
         List<WalletFunction> walletFunctionsList = new ArrayList<>();
@@ -136,16 +143,17 @@ public class ContractProvider{
         return walletFunctionsList;
     }
 
-    private static List<Action> createListOfActionsFromJson(ArrayNode actionsNode) {
+    private static List<Action> readListOfActionsFromJson(ArrayNode actionsNode) {
         Log.info(" Reading List of Action values from JSON file...");
         List<Action> actionsList = new ArrayList<>();
         for (JsonNode actionNode : actionsNode) {
             Action action = new Action();
             action.setTitle(actionNode.get("title").asText());
+            action.setWalletNumber(actionNode.get("walletNo").asInt());
 
             JsonNode actionParametersNode = actionNode.path("parameters");
             if (actionParametersNode != null) {
-                action.setActionParametersList(createListOfActionParametersFromJson(actionParametersNode));
+                action.setActionParametersList(readListOfActionParametersFromJson(actionParametersNode));
             } else {
                 Log.warn("WARNING: Action parameters node is not Array or it is null (it can be ok) - " + actionParametersNode);
             }
@@ -154,7 +162,7 @@ public class ContractProvider{
         return actionsList;
     }
 
-    private static List<ActionParameter> createListOfActionParametersFromJson(JsonNode actionParametersNode) {
+    private static List<ActionParameter> readListOfActionParametersFromJson(JsonNode actionParametersNode) {
         Log.info(" Reading List of Action parameter values from JSON file...");
         List<ActionParameter> actionParametersList = new ArrayList<>();
         Iterator<Map.Entry<String, JsonNode>> paramIterator = actionParametersNode.fields();

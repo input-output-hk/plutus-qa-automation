@@ -7,101 +7,11 @@
           {
             "title": "Wallet #1",
             "currency": "ADA",
-            "balance": 5,
+            "balance": 1555,
             "availableFunctions": [
               "scheduleCollection",
               "contribute",
               "payToWallet_"
-            ],
-            "actions": [
-              {
-                "title": "scheduleCollection",
-                "parameters": {
-                  "campaignDeadline": {
-                    "value": 2,
-                    "type": "basic"
-                  },
-                  "campaignTarget": {
-                    "value": 2,
-                    "type": "basic"
-                  },
-                  "campaignOwner": {
-                    "value": 2,
-                    "type": "basic"
-                  },
-                  "campaignCollectionDeadline": {
-                    "value": 2,
-                    "type": "basic"
-                  }
-                }
-              },
-              {
-                "title": "scheduleCollection",
-                "parameters": {
-                  "campaignDeadline": {
-                    "value": 2,
-                    "type": "basic"
-                  },
-                  "campaignTarget": {
-                    "value": 2,
-                    "type": "basic"
-                  },
-                  "campaignOwner": {
-                    "value": 2,
-                    "type": "basic"
-                  },
-                  "campaignCollectionDeadline": {
-                    "value": 2,
-                    "type": "basic"
-                  }
-                }
-              },
-              {
-                "title": "contribute",
-                "parameters": {
-                  "campaignDeadline": {
-                    "value": 2,
-                    "type": "basic"
-                  },
-                  "campaignTarget": {
-                    "value": 2,
-                    "type": "basic"
-                  },
-                  "campaignOwner": {
-                    "value": 2,
-                    "type": "basic"
-                  },
-                  "campaignCollectionDeadline": {
-                    "value": 2,
-                    "type": "basic"
-                  },
-                  "getAda": {
-                    "value": 2,
-                    "type": "basic"
-                  }
-                }
-              },
-              {
-                "title": "payToWallet_",
-                "parameters": {
-                  "ivTo": {
-                    "value": 2,
-                    "type": "basic"
-                  },
-                  "ivFrom": {
-                    "value": 2,
-                    "type": "basic"
-                  },
-                  "Value": {
-                    "type": "basic",
-                    "value": 24
-                  },
-                  "getWallet": {
-                    "value": 2,
-                    "type": "basic"
-                  }
-                }
-              }
             ]
           },
           {
@@ -112,76 +22,171 @@
               "scheduleCollection",
               "contribute",
               "payToWallet_"
-            ],
-            "actions": [
-              {
-                "title": "scheduleCollection",
-                "parameters": {
-                  "campaignDeadline": {
-                    "value": 3,
-                    "type": "basic"
-                  },
-                  "campaignTarget": {
-                    "value": 3,
-                    "type": "basic"
-                  },
-                  "campaignOwner": {
-                    "value": 3,
-                    "type": "basic"
-                  },
-                  "campaignCollectionDeadline": {
-                    "value": 3,
-                    "type": "basic"
-                  }
-                }
-              },
-              {
-                "title": "contribute",
-                "parameters": {
-                  "campaignDeadline": {
-                    "value": 3,
-                    "type": "basic"
-                  },
-                  "campaignTarget": {
-                    "value": 3,
-                    "type": "basic"
-                  },
-                  "campaignOwner": {
-                    "value": 3,
-                    "type": "basic"
-                  },
-                  "campaignCollectionDeadline": {
-                    "value": 3,
-                    "type": "basic"
-                  },
-                  "getAda": {
-                    "value": 3,
-                    "type": "basic"
-                  }
-                }
-              },
-              {
-                "title": "payToWallet_",
-                "parameters": {
-                  "ivTo": {
-                    "value": 3,
-                    "type": "basic"
-                  },
-                  "ivFrom": {
-                    "value": 3,
-                    "type": "basic"
-                  },
-                  "Value": {
-                    "type": "basic",
-                    "value": 12
-                  },
-                  "getWallet": {
-                    "value": 3,
-                    "type": "basic"
-                  }
-                }
-              }
             ]
+          }
+        ],
+        "actions": [
+          {
+            "walletNo": 1,
+            "title": "scheduleCollection",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 2,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 2,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 2,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 1,
+            "title": "scheduleCollection",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 2,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 2,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 2,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 1,
+            "title": "contribute",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 2,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 2,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 2,
+                "type": "basic"
+              },
+              "getAda": {
+                "value": 2,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 1,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivTo": {
+                "value": 2,
+                "type": "basic"
+              },
+              "ivFrom": {
+                "value": 2,
+                "type": "basic"
+              },
+              "Value": {
+                "type": "basic",
+                "value": 24
+              },
+              "getWallet": {
+                "value": 2,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 2,
+            "title": "scheduleCollection",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 3,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 3,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 3,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 2,
+            "title": "contribute",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 3,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 3,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 3,
+                "type": "basic"
+              },
+              "getAda": {
+                "value": 3,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 2,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivTo": {
+                "value": 3,
+                "type": "basic"
+              },
+              "ivFrom": {
+                "value": 3,
+                "type": "basic"
+              },
+              "Value": {
+                "type": "basic",
+                "value": 12
+              },
+              "getWallet": {
+                "value": 3,
+                "type": "basic"
+              }
+            }
           }
         ]
       }

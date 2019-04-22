@@ -1,0 +1,52 @@
+{
+  "game":  {
+    "simulations": [
+      {
+        "title": "Simulation #1",
+        "wallets": [
+          {
+            "title": "Wallet #1",
+            "currency": "ADA",
+            "balance": 11
+          },
+          {
+            "title": "Wallet #2",
+            "currency": "ADA",
+            "balance": 4
+          }
+        ],
+        "actions": [
+          {
+            "walletNo": 1,
+            "title": "startGame",
+            "parameters": {}
+          },
+          {
+            "walletNo": 2,
+            "title": "lock",
+            "parameters": {
+              "inputString": {
+                "value": "plutus",
+                "type": "string"
+              },
+              "Value": {
+                "value": 3,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 1,
+            "title": "guess",
+            "parameters": {
+              "inputString": {
+                "value": "plutus",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

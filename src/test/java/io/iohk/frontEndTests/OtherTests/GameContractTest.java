@@ -4,37 +4,23 @@ import io.iohk.dataModels.Contract;
 import io.iohk.dataProviders.ContractProvider;
 import io.iohk.frontEndTests.GeneralMethods;
 import io.iohk.utils.DriverManager;
-import io.iohk.utils.Enums;
 import io.iohk.utils.listeners.AnnotationTransformer;
 import io.iohk.utils.listeners.ScreenshotListener;
 import io.iohk.utils.listeners.TestListener;
 import org.testng.annotations.*;
 
-import java.util.Objects;
 
 @Listeners({ScreenshotListener.class, TestListener.class, AnnotationTransformer.class})
-public class EvaluateContractsPositiveTest extends GeneralMethods {
+public class GameContractTest extends GeneralMethods {
     @DataProvider
     public Object[][] dataProviderScenarios() {
         return new Object[][] {
-//                { "/jsons/CrowdfundigContract_1Simulation_2Wallets_7Actions.json"},
-//                { "/jsons/CrowdfundigContract_2Simulations_2Wallets_7Actions.json"},
-//                { "/jsons/CrowdfundigContract_3Simulations_15Wallets.json"},
-//                { "/jsons/VestingContract_1Simulation_2Wallets_8Actions.json"},
-//                { "/jsons/MessagesContract_1Simulation_2Wallets_8Actions.json"},
-//                { "/jsons/GameContract_1Simulation_2Wallets_8Actions.json"}
-                { "/jsons/Crowdfundig_3Wallets.json"}
+                { "/jsons/GameContract_1Simulation_2Wallets.json"}
         };
     }
 
     @Test(dataProvider = "dataProviderScenarios")
     public void evaluatePositiveDemoScenarios(String dataSource) throws Exception {
-        // Test steps:
-        //      1. Create the scenarios from the provided JSON files
-        //      2. Create and Evaluate the scenarios and check that:
-        //          3.1 each contract is successfully compiled
-        //          3.2 all the values from the Simulation tab are filled correctly (as per json)
-        //          3.3 each contract is successfully evaluated
 
         Contract contract = ContractProvider.readContractFromJson(dataSource);
 
