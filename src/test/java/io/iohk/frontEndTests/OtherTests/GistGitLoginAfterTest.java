@@ -17,8 +17,8 @@ public class GistGitLoginAfterTest extends GeneralMethods {
     @DataProvider
     public Object[][] dataProviderScenarios() {
         return new Object[][] {
-                { "/jsons/CrowdfundigContract_1Simulation_2Wallets_7Actions.json"}
-//                { "/jsons/CrowdfundigContract_3Simulations_15Wallets.json"}
+                { "/jsons/Crowdfundig_1Simulation_2Wallets_7Actions.json"}
+//                { "/jsons/Crowdfundig_3Simulations_15Wallets.json"}
         };
     }
 

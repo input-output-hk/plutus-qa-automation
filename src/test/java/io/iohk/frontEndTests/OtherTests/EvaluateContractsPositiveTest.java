@@ -14,8 +14,9 @@ public class EvaluateContractsPositiveTest extends GeneralMethods {
     @DataProvider
     public Object[][] dataProviderScenarios() {
         return new Object[][] {
-                { "/jsons/GameContract_1Simulation_2Wallets.json"}
-//                { "/jsons/CrowdfundigContract_3Wallets.json"}
+                { "/jsons/Game_1Simulation_2Wallets.json"},
+                { "/jsons/Crowdfundig_3Wallets.json"},
+                { "/jsons/Crowdfundig_PayToWallet_2Wallets_2Actions.json"}
         };
     }
 
