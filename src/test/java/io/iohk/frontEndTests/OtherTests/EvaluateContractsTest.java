@@ -10,14 +10,14 @@ import io.iohk.utils.listeners.TestListener;
 import org.testng.annotations.*;
 
 @Listeners({ScreenshotListener.class, TestListener.class, AnnotationTransformer.class})
-public class EvaluateContractsPositiveTest extends GeneralMethods {
+public class EvaluateContractsTest extends GeneralMethods {
     @DataProvider
     public Object[][] dataProviderScenarios() {
         return new Object[][] {
-                { "/jsons/Game_1Simulation_2Wallets.json"}
-//                { "/jsons/Crowdfundig_3Wallets.json"},
-//                { "/jsons/Crowdfundig_10Wallets.json"},
-//                { "/jsons/Crowdfundig_PayToWallet_2Wallets_2Actions.json"}
+                { "/jsons/Game_1Simulation_2Wallets.json"},
+                { "/jsons/Crowdfundig_3Wallets.json"},
+                { "/jsons/Crowdfundig_10Wallets.json"},
+                { "/jsons/Crowdfundig_PayToWallet_2Wallets_2Actions.json"}
         };
     }
 
