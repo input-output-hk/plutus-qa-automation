@@ -38,7 +38,7 @@ public class GistGitLoginBeforeTest extends GeneralMethods {
         signInToGithub();
 
         Log.debug(" 2. Create and Evauate the scenarios from each provided JSON files");
-        evaluatePositiveContractFromScenario(contract);
+        evaluateContractFromScenario(contract);
 
         Log.debug("3. Check that the Simulation tab values");
         checkSimulationTabValues(contract);

@@ -20,15 +20,22 @@ Technologies used: Java, TestNG, Selenium, Maven, Log4j.
     
 - **_Creating input JSONs considerations_**:
     - when creating a new json (as input for a script), use an existing one as model
-    - each json should have these nodes/levels: contract/listOfSimulations/listOfWallets/listOfActions/listOfParameters
+    - each json should have these nodes/levels: 
+        - contract
+        - listOfSimulations 
+            - listOfWallets
+            - listOfActions 
+                - listOfParameters
     - each Action Parameter should have a type defined - basic, string or multivalue 
-        - basic - EX: crowdfunding/contribute/campaignDeadline - 1 parameter with 1 value besides it
-        - string - EX: game/guess - 1 parameter with an input field besides it (not title for the field)
+        - basic - EX: crowdfunding/contribute/campaignDeadline - 1 parameter with 1 value 
+        - string - EX: game/guess - 1 parameter with an input field (no title for the field)
         - multivalue 
             - EX - crowdfunding/payToWallet_/getValue - 1 parameter with multiple rows with multiple input values per row
-            - EX - vesting/vestFunds/vestingTranche2 - 1 parameter with multiple secondary parameters besides it 
-    - if you want to add the same Simulation or Wallet more than 1 times, make sure to add the "addMultipleTimes" parameter to it
-        - EX: CrowdfundigContract_2Simulations_15Wallets.json
+            - EX - vesting/vestFunds/vestingTranche2 - 1 parameter with multiple secondary parameters  
+    - if you want to add the same Simulation, Wallet or Action more than 1 time, make sure to add the "addMultipleTimes" parameter to it
+        - EX: Crowdfundig_2Simulations_15Wallets.json
+    - if you expect that 1 Action to generate an error message inside the Transactions Logs, make sure to add the "expectedError" parameter
+        - EX: Game_1Simulation_2Wallets.json
     
 - **_Running Scripts using MAVEN_**
     - install Chrome/Firefox on local PC

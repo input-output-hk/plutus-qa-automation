@@ -1,0 +1,328 @@
+{
+  "crowdfunding":  {
+    "simulations": [
+      {
+        "title": "Simulation #1",
+        "wallets": [
+          {
+            "title": "Wallet #1",
+            "currency": "ADA",
+            "balance": 45
+          },
+          {
+            "title": "Wallet #2",
+            "currency": "ADA",
+            "balance": 50
+          },
+          {
+            "title": "Wallet #3",
+            "currency": "ADA",
+            "balance": 65
+          },
+          {
+            "title": "Wallet #4",
+            "currency": "ADA",
+            "balance": 95
+          },
+          {
+            "title": "Wallet #5",
+            "currency": "ADA",
+            "balance": 67
+          },
+          {
+            "title": "Wallet #6",
+            "currency": "ADA",
+            "balance": 22
+          },
+          {
+            "title": "Wallet #7",
+            "currency": "ADA",
+            "balance": 24
+          },
+          {
+            "title": "Wallet #8",
+            "currency": "ADA",
+            "balance": 769
+          },
+          {
+            "title": "Wallet #9",
+            "currency": "ADA",
+            "balance": 41
+          },
+          {
+            "title": "Wallet #1.",
+            "currency": "ADA",
+            "balance": 150
+          }
+        ],
+        "actions": [
+          {
+            "walletNo": 1,
+            "title": "scheduleCollection",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 99,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 20,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 2,
+            "title": "contribute",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 20,
+                "type": "basic"
+              },
+              "getAda": {
+                "value": 5,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 3,
+            "title": "contribute",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 20,
+                "type": "basic"
+              },
+              "getAda": {
+                "value": 12,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 4,
+            "title": "contribute",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 20,
+                "type": "basic"
+              },
+              "getAda": {
+                "value": 18,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 5,
+            "title": "contribute",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 20,
+                "type": "basic"
+              },
+              "getAda": {
+                "value": 28,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 6,
+            "title": "contribute",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 20,
+                "type": "basic"
+              },
+              "getAda": {
+                "value": 14,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 7,
+            "title": "contribute",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 20,
+                "type": "basic"
+              },
+              "getAda": {
+                "value": 22,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 8,
+            "title": "contribute",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 20,
+                "type": "basic"
+              },
+              "getAda": {
+                "value": 11,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 9,
+            "title": "contribute",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 20,
+                "type": "basic"
+              },
+              "getAda": {
+                "value": 8,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 10,
+            "title": "contribute",
+            "parameters": {
+              "campaignDeadline": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignTarget": {
+                "value": 10,
+                "type": "basic"
+              },
+              "campaignOwner": {
+                "value": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+                "type": "basic"
+              },
+              "campaignCollectionDeadline": {
+                "value": 20,
+                "type": "basic"
+              },
+              "getAda": {
+                "value": 111,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "title": "waitAction",
+            "parameters": {
+              "Time": {
+                "value": 30,
+                "type": "wait"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

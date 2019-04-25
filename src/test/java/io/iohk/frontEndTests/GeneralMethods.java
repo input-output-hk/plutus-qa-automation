@@ -185,7 +185,7 @@ public class GeneralMethods extends BaseTest {
         mainPage.waitPublishGistToFinish();
     }
 
-    protected void evaluatePositiveContractFromScenario(Contract contract) {
+    protected void evaluateContractFromScenario(Contract contract) {
         Log.debug("Compile the Contract");
         compileSpecificSmartContract(Enums.SmartContract.valueOf(contract.getTitle().toUpperCase()));
 
@@ -195,30 +195,55 @@ public class GeneralMethods extends BaseTest {
         Log.debug("Check all configured values inside the Simulation Tab");
         checkSimulationTabValues(contract);
 
-        Log.debug("Evaluate all the Simulations from the provided scenario");
-        evaluateAllSimulations(contract.getSimulationsList());
+        Log.debug("Evaluate each Simulation from the provided scenario and check the Transaction tab values");
+        for (Simulation simulation : contract.getSimulationsList()) {
+            evaluateSimulation(simulation);
 
-        Log.debug("Check the Transaction tab values for each simulation");
-        checkTransactionTabValues();
+            List<String> expectedErrors = new ArrayList<>();
+            for (Action action: simulation.getActionsList()) {
+                if (action.getExpectedError() != null) {
+                    expectedErrors.add(action.getExpectedError());
+                }
+            }
+            checkTransactionTabValues(expectedErrors);
+        }
     }
 
-    private void checkTransactionTabValues() {
+    private void checkTransactionTabValues(List<String> expectedErrors) {
         Log.info("==================== Start Checking Transactions Tab values ========================");
-        Log.info("Check that there are no errors inside the Transaction tab");
-        Assert.assertEquals(transactionsPage.getErrorsList().size(), 0,
-                "ERROR: There are " + transactionsPage.getErrorsList().size() + " errors on the Transaction page: " +
-                        transactionsPage.getErrorsList());
+        List<String> existingErrors = transactionsPage.getErrorsList();
+        Log.info("  - Expected errors: " + expectedErrors.size());
+        Log.info("  - Existing errors: " + existingErrors.size());
+
+        Log.info("Check for unexpected errors inside the Transactions tab");
+        List<String> unexpectedErrors = new ArrayList<>();
+        for (String error: existingErrors) {
+            boolean flag = false;
+            for (String expectedError: expectedErrors) {
+                if (error.contains(expectedError)) {
+                    flag = true;
+                }
+            }
+            if (!flag) {
+                unexpectedErrors.add(error);
+            }
+        }
+        Assert.assertEquals(unexpectedErrors.size(), 0,
+                "ERROR: There are " + unexpectedErrors.size() + " unexpected errors on the Transaction page: " +
+                        unexpectedErrors);
+
+        Assert.assertTrue(existingErrors.size() >= expectedErrors.size(),
+                "The number of existing errors is smaller than the expected one --> Exected: " +
+                        expectedErrors.size() + " VS Existing: " + existingErrors.size());
+
         Log.info("==================== End Checking Transactions Tab values ========================");
     }
 
-    private void evaluateAllSimulations(List<Simulation> simulationList) {
-        Log.info("Evaluate each created Simulation");
-        for (Simulation simulation : simulationList) {
-            Log.info("  - Evaluating Simulation - " + simulation.getTitle());
-            mainPage.clickbtnSimulationBtn();
-            simulationPage.openSimulation(simulation.getTitle());
-            evaluateSimulationAndWaitSuccess();
-        }
+    private void evaluateSimulation(Simulation simulation) {
+        Log.info("  - Evaluating Simulation - " + simulation.getTitle());
+        mainPage.clickbtnSimulationBtn();
+        simulationPage.openSimulation(simulation.getTitle());
+        evaluateSimulationAndWaitSuccess();
     }
 
     private void createContractFromScenario(Contract contract) {

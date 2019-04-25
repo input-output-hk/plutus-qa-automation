@@ -153,6 +153,10 @@ public class ContractProvider{
                 action.setWalletNumber(actionNode.get("walletNo").asInt());
             }
 
+            if (actionNode.has("expectedError")) {
+                action.setExpectedError(actionNode.get("expectedError").asText());
+            }
+
             JsonNode actionParametersNode = actionNode.path("parameters");
             if (actionParametersNode != null) {
                 action.setActionParametersList(readListOfActionParametersFromJson(actionParametersNode));

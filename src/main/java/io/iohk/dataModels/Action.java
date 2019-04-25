@@ -9,6 +9,7 @@ public class Action {
     private int walletNumber = 0;
     private int actionNumber;
     private List<ActionParameter> actionParametersList = null;
+    private String expectedError = null;
 
     public String getTitle() {
         return title;
@@ -43,5 +44,13 @@ public class Action {
     public void setActionParametersList(List<ActionParameter> actionParametersList) {
         Log.info("  - Set Action parameters list to: " + actionParametersList);
         this.actionParametersList = actionParametersList;
+    }
+
+    public String getExpectedError() {
+        return expectedError;
+    }
+
+    public void setExpectedError(String expectedError) {
+        this.expectedError = expectedError;
     }
 }

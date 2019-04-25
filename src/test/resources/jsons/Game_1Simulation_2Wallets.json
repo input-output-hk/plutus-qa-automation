@@ -40,6 +40,17 @@
             "title": "guess",
             "parameters": {
               "inputString": {
+                "value": "marlowe",
+                "type": "string"
+              }
+            },
+            "expectedError": "Validation failed for transaction"
+          },
+          {
+            "walletNo": 1,
+            "title": "guess",
+            "parameters": {
+              "inputString": {
                 "value": "plutus",
                 "type": "string"
               }

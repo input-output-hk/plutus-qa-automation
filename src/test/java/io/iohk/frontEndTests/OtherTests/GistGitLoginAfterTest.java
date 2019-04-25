@@ -35,7 +35,7 @@ public class GistGitLoginAfterTest extends GeneralMethods {
         Contract contract = ContractProvider.readContractFromJson(dataSource);
 
         Log.debug(" 1. Create and Evauate the scenarios from each provided JSON files");
-        evaluatePositiveContractFromScenario(contract);
+        evaluateContractFromScenario(contract);
 
         Log.debug("2. Sign In to Github button using the header button/option");
         signInToGithub();
