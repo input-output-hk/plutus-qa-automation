@@ -8,6 +8,7 @@ public class Wallet {
     private String title;
     private String currency;
     private int balance;
+    private int finalBalance;
     private List<WalletFunction> availableFunctionsList = null;
 
     public String getTitle() {
@@ -35,6 +36,14 @@ public class Wallet {
     public void setBalance(int balance) {
         Log.info("  - Reading wallet balance as: " + balance);
         this.balance = balance;
+    }
+
+    public int getFinalBalance() {
+        return finalBalance;
+    }
+
+    public void setFinalBalance(int finalBalance) {
+        this.finalBalance = finalBalance;
     }
 
     public List<WalletFunction> getAvailableFunctionsList() {

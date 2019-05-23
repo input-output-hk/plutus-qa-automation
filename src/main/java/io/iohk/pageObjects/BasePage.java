@@ -109,6 +109,12 @@ public class BasePage {
 		wait.until(ExpectedConditions.textToBePresentInElement(webElement, expectedTextValue));
 	}
 
+	/** Method to get the the value of a specific attribute of a webelement	 */
+	protected String getAttributeValue(WebElement webElement, String attributeName) {
+		waitForElementToBeVisible(webElement, DEFAULT_WAIT_ELEMENT_TIMEOUT);
+		return webElement.getAttribute(attributeName);
+	}
+
 	/** Method to get the text attribute of a webelement	 */
 	protected String getTextFieldValue(WebElement webElement) {
 		waitForElementToBeVisible(webElement, DEFAULT_WAIT_ELEMENT_TIMEOUT);

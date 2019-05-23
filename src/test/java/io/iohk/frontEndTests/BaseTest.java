@@ -43,7 +43,7 @@ public class BaseTest {
     @BeforeClass
     @Parameters({"env", "browserType", "runner", "gridAddress", "headless"})
     public void beforeClass(
-            @Optional("PROD") Environment env,
+            @Optional("DEV_KRIS") Environment env,
             @Optional("CHROME") Browser browserType,
             @Optional("LOCALHOST") Runner runner,
             @Optional("http://localhost:4444/wd/hub") String gridAddress,

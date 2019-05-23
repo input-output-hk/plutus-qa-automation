@@ -7,12 +7,14 @@
           {
             "title": "Wallet #1",
             "currency": "ADA",
-            "balance": 53
+            "balance": 53,
+            "finalBalance": 42
           },
           {
             "title": "Wallet #2",
             "currency": "ADA",
-            "balance": 27
+            "balance": 27,
+            "finalBalance": 38
           }
         ],
         "actions": [
@@ -33,7 +35,7 @@
                 "type": "basic"
               },
               "getWallet": {
-                "value": 1,
+                "value": 2,
                 "type": "basic"
               }
             }
@@ -43,11 +45,11 @@
             "title": "payToWallet_",
             "parameters": {
               "ivFrom": {
-                "value": 2,
+                "value": 11,
                 "type": "basic"
               },
               "ivTo": {
-                "value": 10,
+                "value": 15,
                 "type": "basic"
               },
               "Value": {
@@ -55,8 +57,17 @@
                 "type": "basic"
               },
               "getWallet": {
-                "value": 2,
+                "value": 1,
                 "type": "basic"
+              }
+            }
+          },
+          {
+            "title": "waitAction",
+            "parameters": {
+              "Time": {
+                "value": 20,
+                "type": "wait"
               }
             }
           }

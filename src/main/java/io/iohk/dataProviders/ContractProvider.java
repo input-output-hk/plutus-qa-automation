@@ -110,6 +110,7 @@ public class ContractProvider{
                 wallet.setTitle("Wallet #" + noOfCreatedWallets);
                 wallet.setCurrency(walletNode.get("currency").asText());
                 wallet.setBalance(walletNode.get("balance").asInt());
+                wallet.setFinalBalance(walletNode.get("finalBalance").asInt());
 
                 ArrayNode availableFunctionsNode = (ArrayNode) walletNode.get("availableFunctions");
                 if (availableFunctionsNode != null && availableFunctionsNode.isArray()) {

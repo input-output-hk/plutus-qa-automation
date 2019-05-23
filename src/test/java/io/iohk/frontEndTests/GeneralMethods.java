@@ -205,17 +205,16 @@ public class GeneralMethods extends BaseTest {
                     expectedErrors.add(action.getExpectedError());
                 }
             }
-            checkTransactionTabValues(expectedErrors);
+            checkTransactionTabValues(expectedErrors, contract);
         }
     }
 
-    private void checkTransactionTabValues(List<String> expectedErrors) {
-        Log.info("==================== Start Checking Transactions Tab values ========================");
+    private void checkTransactionsTabErrors(List<String> expectedErrors) {
+        Log.info("Checking for unexpected errors inside the Transactions tab");
         List<String> existingErrors = transactionsPage.getErrorsList();
         Log.info("  - Expected errors: " + expectedErrors.size());
         Log.info("  - Existing errors: " + existingErrors.size());
 
-        Log.info("Check for unexpected errors inside the Transactions tab");
         List<String> unexpectedErrors = new ArrayList<>();
         for (String error: existingErrors) {
             boolean flag = false;
@@ -228,6 +227,7 @@ public class GeneralMethods extends BaseTest {
                 unexpectedErrors.add(error);
             }
         }
+
         Assert.assertEquals(unexpectedErrors.size(), 0,
                 "ERROR: There are " + unexpectedErrors.size() + " unexpected errors on the Transaction page: " +
                         unexpectedErrors);
@@ -235,6 +235,28 @@ public class GeneralMethods extends BaseTest {
         Assert.assertTrue(existingErrors.size() >= expectedErrors.size(),
                 "The number of existing errors is smaller than the expected one --> Exected: " +
                         expectedErrors.size() + " VS Existing: " + existingErrors.size());
+    }
+
+    private void checkTransactionsTabFinalBalances(Contract contract) {
+        Log.info("Checking the Final Balances inside the Transactions tab");
+        LinkedList<String> walletTitlesFromFinalBalances = transactionsPage.getWalletTitlesFromFinalBalances();
+        for (String walletName: walletTitlesFromFinalBalances) {
+
+            int expectedWalletBalance = getWalletFinalBalanceFromJson(contract, walletName);
+            int returnedWalletBalance = transactionsPage.getWalletFinalBalance(walletName, walletTitlesFromFinalBalances);
+
+            Assert.assertEquals(returnedWalletBalance, expectedWalletBalance,
+                    "Balance for " + walletName + " is different than expected; Expected: " +
+                            expectedWalletBalance + " vs Returned (UI): " + returnedWalletBalance
+            );
+        }
+    }
+
+    private void checkTransactionTabValues(List<String> expectedErrors, Contract contract) {
+        Log.info("==================== Start Checking Transactions Tab values ========================");
+
+        checkTransactionsTabErrors(expectedErrors);
+        checkTransactionsTabFinalBalances(contract);
 
         Log.info("==================== End Checking Transactions Tab values ========================");
     }
@@ -355,8 +377,8 @@ public class GeneralMethods extends BaseTest {
 
                 Assert.assertEquals(wallet.getBalance(), simulationPage.getWalletBalance(wallet.getTitle()),
                         "ERROR: Wallet's balance is different than expected for wallet: " + wallet.getTitle());
-//                Assert.assertEquals(wallet.getCurrency().toLowerCase(), simulationPage.getWalletCurrency(wallet.getTitle()).toLowerCase(),
-//                        "ERROR: Wallet's currency is different than expected for wallet: " + wallet.getTitle());
+                Assert.assertEquals(wallet.getCurrency().toLowerCase(), simulationPage.getWalletCurrency(wallet.getTitle()).toLowerCase(),
+                        "ERROR: Wallet's currency is different than expected for wallet: " + wallet.getTitle());
 
                 if (wallet.getAvailableFunctionsList() != null) {
                     List<String> walletFunctionsList = new ArrayList<>();
@@ -422,4 +444,48 @@ public class GeneralMethods extends BaseTest {
 
         Log.info("==================== End Checking Simulation Tab values ========================");
     }
+
+    private int getWalletBalanceFromJson(Contract contract, String walletTitle) {
+        Log.info("  - Getting the (JSON) Balance value for: " + walletTitle);
+        List<Wallet> walletList = contract.getSimulationsList().get(0).getWalletsList();
+        for (Wallet wallet: walletList) {
+            if (wallet.getTitle().equals(walletTitle)) {
+                return wallet.getBalance();
+            }
+        }
+        Log.error("Wallet title was not find in contract json - " + walletTitle);
+        return 0;
+    }
+
+    private int getWalletFinalBalanceFromJson(Contract contract, String walletTitle) {
+        Log.info("  - Getting the (JSON) Final Balance value for: " + walletTitle);
+        List<Wallet> walletList = contract.getSimulationsList().get(0).getWalletsList();
+        for (Wallet wallet: walletList) {
+            if (wallet.getTitle().equals(walletTitle)) {
+                return wallet.getFinalBalance();
+            }
+        }
+        Log.error("Wallet title was not find in contract json - " + walletTitle);
+        return 0;
+    }
+
+    private String getActionParameterValueFromJson(Contract contract, int actionNumber, String parameterTitle) {
+        Log.info("  - Getting the (JSON) value of parameter " + parameterTitle + " of Action No " + actionNumber);
+        List<Action> actionsList = contract.getSimulationsList().get(0).getActionsList();
+        for (Action action: actionsList) {
+            if (action.getActionNumber() == actionNumber) {
+                for (ActionParameter parameter : action.getActionParametersList()) {
+                    if (parameter.getTitle().equals(parameterTitle)) {
+                        return parameter.getValue().get(0).get("Value");
+                    }
+                }
+            }
+        }
+        Log.error("Action Parameter was not found in contract json; Action number: " + actionNumber + "; Parameter: " + parameterTitle);
+        return null;
+    }
+
+
+
+
 }

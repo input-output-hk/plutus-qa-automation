@@ -1,16 +1,22 @@
 package io.iohk.pageObjects;
 
+import io.iohk.utils.Log;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class TransactionsPage extends BasePage {
     @FindBy(xpath = "//div[@class='container'][contains(.,'Click the Simulation tab above and evaluate a simulation to see some results')]")
     private WebElement txtNoEvaluatedContract;
+
+    @FindBy(xpath = "//*[name()='svg']//span[contains(text(),'Wallet #')]")
+    private List<WebElement> listWalletTitlesFromFinalBalances;
 
     @FindBy(xpath = "//div[@class='logs']//div[@class='error']")
     private List<WebElement> listErrors;
@@ -44,4 +50,24 @@ public class TransactionsPage extends BasePage {
         }
         return infosList;
     }
+
+    public LinkedList<String> getWalletTitlesFromFinalBalances() {
+        LinkedList<String> walletTitlesFromFinalBalances = new LinkedList<>();
+        for (WebElement walltTitleObj : listWalletTitlesFromFinalBalances) {
+            String walletTitle = getAttributeValue(walltTitleObj, "innerText");
+            walletTitlesFromFinalBalances.add(walletTitle);
+        }
+        return walletTitlesFromFinalBalances;
+    }
+
+     public int getWalletFinalBalance(String walletTitle, LinkedList<String> walletTitlesFromFinalBalances) {
+         Log.info("  - Getting the (UI) Final Balance for: " + walletTitle);
+         String walletBalanceLocator =
+                "//*[name()='svg']//*[name()='line' and @class='ct-bar'][" +
+                        (walletTitlesFromFinalBalances.indexOf(walletTitle) + 1) +
+                        "]";
+         WebElement walletBalanceObj = driver.findElement(By.xpath(walletBalanceLocator));
+         return Integer.parseInt(getAttributeValue(walletBalanceObj, "ct:value"));
+    }
+
 }
