@@ -192,7 +192,7 @@ public class GeneralMethods extends BaseTest {
         Log.debug("Create the Contract from provided scenario - " + contract.getTitle());
         createContractFromScenario(contract);
 
-        Log.debug("Check all configured values inside the Simulation Tab");
+        Log.debug("Check all configured values inside the Simulation Tab (for all Simulations)");
         checkSimulationTabValues(contract);
 
         Log.debug("Evaluate each Simulation from the provided scenario and check the Transaction tab values");
@@ -205,7 +205,7 @@ public class GeneralMethods extends BaseTest {
                     expectedErrors.add(action.getExpectedError());
                 }
             }
-            checkTransactionTabValues(expectedErrors, contract);
+            checkTransactionTabValues(expectedErrors, simulation);
         }
     }
 
@@ -237,12 +237,12 @@ public class GeneralMethods extends BaseTest {
                         expectedErrors.size() + " VS Existing: " + existingErrors.size());
     }
 
-    private void checkTransactionsTabFinalBalances(Contract contract) {
+    private void checkTransactionsTabFinalBalances(Simulation simulation) {
         Log.info("Checking the Final Balances inside the Transactions tab");
         LinkedList<String> walletTitlesFromFinalBalances = transactionsPage.getWalletTitlesFromFinalBalances();
         for (String walletName: walletTitlesFromFinalBalances) {
 
-            int expectedWalletBalance = getWalletFinalBalanceFromJson(contract, walletName);
+            int expectedWalletBalance = getWalletFinalBalanceFromJson(simulation, walletName);
             int returnedWalletBalance = transactionsPage.getWalletFinalBalance(walletName, walletTitlesFromFinalBalances);
 
             Assert.assertEquals(returnedWalletBalance, expectedWalletBalance,
@@ -252,17 +252,17 @@ public class GeneralMethods extends BaseTest {
         }
     }
 
-    private void checkTransactionTabValues(List<String> expectedErrors, Contract contract) {
+    private void checkTransactionTabValues(List<String> expectedErrors, Simulation simulation) {
         Log.info("==================== Start Checking Transactions Tab values ========================");
 
         checkTransactionsTabErrors(expectedErrors);
-        checkTransactionsTabFinalBalances(contract);
+        checkTransactionsTabFinalBalances(simulation);
 
         Log.info("==================== End Checking Transactions Tab values ========================");
     }
 
     private void evaluateSimulation(Simulation simulation) {
-        Log.info("  - Evaluating Simulation - " + simulation.getTitle());
+        Log.info(" Evaluating Simulation - " + simulation.getTitle());
         mainPage.clickbtnSimulationBtn();
         simulationPage.openSimulation(simulation.getTitle());
         evaluateSimulationAndWaitSuccess();
@@ -457,9 +457,9 @@ public class GeneralMethods extends BaseTest {
         return 0;
     }
 
-    private int getWalletFinalBalanceFromJson(Contract contract, String walletTitle) {
+    private int getWalletFinalBalanceFromJson(Simulation simulation, String walletTitle) {
         Log.info("  - Getting the (JSON) Final Balance value for: " + walletTitle);
-        List<Wallet> walletList = contract.getSimulationsList().get(0).getWalletsList();
+        List<Wallet> walletList = simulation.getWalletsList();
         for (Wallet wallet: walletList) {
             if (wallet.getTitle().equals(walletTitle)) {
                 return wallet.getFinalBalance();

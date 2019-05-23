@@ -17,7 +17,7 @@ public class EvaluateContractsTest extends GeneralMethods {
 //                { "/jsons/Game_1Simulation_2Wallets.json"},
 //                { "/jsons/Crowdfundig_3Wallets.json"},
 //                { "/jsons/Crowdfundig_10Wallets.json"},
-                { "/jsons/Crowdfundig_PayToWallet_2Wallets_2Actions.json"}
+                {"/jsons/Crowdfundig_PayToWallet_3Simulations.json"}
         };
     }
 

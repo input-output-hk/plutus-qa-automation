@@ -1,0 +1,378 @@
+{
+  "crowdfunding":  {
+    "simulations": [
+      {
+        "title": "Simulation #1",
+        "wallets": [
+          {
+            "title": "Wallet #1",
+            "currency": "ADA",
+            "balance": 53,
+            "finalBalance": 42
+          },
+          {
+            "title": "Wallet #2",
+            "currency": "ADA",
+            "balance": 27,
+            "finalBalance": 38
+          }
+        ],
+        "actions": [
+          {
+            "walletNo": 1,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivFrom": {
+                "value": 5,
+                "type": "basic"
+              },
+              "ivTo": {
+                "value": 9,
+                "type": "basic"
+              },
+              "Value": {
+                "value": 29,
+                "type": "basic"
+              },
+              "getWallet": {
+                "value": 2,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 2,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivFrom": {
+                "value": 11,
+                "type": "basic"
+              },
+              "ivTo": {
+                "value": 15,
+                "type": "basic"
+              },
+              "Value": {
+                "value": 18,
+                "type": "basic"
+              },
+              "getWallet": {
+                "value": 1,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "title": "waitAction",
+            "parameters": {
+              "Time": {
+                "value": 20,
+                "type": "wait"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "title": "Simulation #2",
+        "wallets": [
+          {
+            "title": "Wallet #1",
+            "currency": "ADA",
+            "balance": 10,
+            "finalBalance": 6
+          },
+          {
+            "title": "Wallet #2",
+            "currency": "ADA",
+            "balance": 10,
+            "finalBalance": 14
+          }
+        ],
+        "actions": [
+          {
+            "walletNo": 1,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivFrom": {
+                "value": 2,
+                "type": "basic"
+              },
+              "ivTo": {
+                "value": 3,
+                "type": "basic"
+              },
+              "Value": {
+                "value": 2,
+                "type": "basic"
+              },
+              "getWallet": {
+                "value": 2,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 1,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivFrom": {
+                "value": 2,
+                "type": "basic"
+              },
+              "ivTo": {
+                "value": 3,
+                "type": "basic"
+              },
+              "Value": {
+                "value": 2,
+                "type": "basic"
+              },
+              "getWallet": {
+                "value": 2,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "title": "waitAction",
+            "parameters": {
+              "Time": {
+                "value": 20,
+                "type": "wait"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "title": "Simulation #3",
+        "wallets": [
+          {
+            "title": "Wallet #1",
+            "currency": "ADA",
+            "balance": 11,
+            "finalBalance": 228
+          },
+          {
+            "title": "Wallet #2",
+            "currency": "ADA",
+            "balance": 289,
+            "finalBalance": 3788
+          },
+          {
+            "title": "Wallet #3",
+            "currency": "ADA",
+            "balance": 1284,
+            "finalBalance": 1216
+          },
+          {
+            "title": "Wallet #4",
+            "currency": "ADA",
+            "balance": 1839,
+            "finalBalance": 1821
+          },
+          {
+            "title": "Wallet #5",
+            "currency": "ADA",
+            "balance": 8538,
+            "finalBalance": 4918
+          },
+          {
+            "title": "Wallet #6",
+            "currency": "ADA",
+            "balance": 728,
+            "finalBalance": 718
+          }
+        ],
+        "actions": [
+          {
+            "walletNo": 1,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivFrom": {
+                "value": 2,
+                "type": "basic"
+              },
+              "ivTo": {
+                "value": 4,
+                "type": "basic"
+              },
+              "Value": {
+                "value": 1,
+                "type": "basic"
+              },
+              "getWallet": {
+                "value": 3,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 2,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivFrom": {
+                "value": 1,
+                "type": "basic"
+              },
+              "ivTo": {
+                "value": 5,
+                "type": "basic"
+              },
+              "Value": {
+                "value": 125,
+                "type": "basic"
+              },
+              "getWallet": {
+                "value": 5,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 3,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivFrom": {
+                "value": 2,
+                "type": "basic"
+              },
+              "ivTo": {
+                "value": 9,
+                "type": "basic"
+              },
+              "Value": {
+                "value": 69,
+                "type": "basic"
+              },
+              "getWallet": {
+                "value": 6,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 4,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivFrom": {
+                "value": 2,
+                "type": "basic"
+              },
+              "ivTo": {
+                "value": 5,
+                "type": "basic"
+              },
+              "Value": {
+                "value": 218,
+                "type": "basic"
+              },
+              "getWallet": {
+                "value": 1,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 5,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivFrom": {
+                "value": 3,
+                "type": "basic"
+              },
+              "ivTo": {
+                "value": 4,
+                "type": "basic"
+              },
+              "Value": {
+                "value": 2498,
+                "type": "basic"
+              },
+              "getWallet": {
+                "value": 2,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 6,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivFrom": {
+                "value": 3,
+                "type": "basic"
+              },
+              "ivTo": {
+                "value": 7,
+                "type": "basic"
+              },
+              "Value": {
+                "value": 200,
+                "type": "basic"
+              },
+              "getWallet": {
+                "value": 4,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 2,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivFrom": {
+                "value": 4,
+                "type": "basic"
+              },
+              "ivTo": {
+                "value": 7,
+                "type": "basic"
+              },
+              "Value": {
+                "value": 121,
+                "type": "basic"
+              },
+              "getWallet": {
+                "value": 6,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "walletNo": 5,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivFrom": {
+                "value": 4,
+                "type": "basic"
+              },
+              "ivTo": {
+                "value": 9,
+                "type": "basic"
+              },
+              "Value": {
+                "value": 1247,
+                "type": "basic"
+              },
+              "getWallet": {
+                "value": 2,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "title": "waitAction",
+            "parameters": {
+              "Time": {
+                "value": 20,
+                "type": "wait"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
