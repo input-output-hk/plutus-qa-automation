@@ -388,6 +388,7 @@ public class GeneralMethods extends BaseTest {
                     Assert.assertTrue(mainPage.complexCompareLists(walletFunctionsList, simulationPage.getWalletFunctionsByTitleList(wallet.getTitle())),
                             "ERROR: Wallet's available functions are different than expected for wallet: " + wallet.getTitle());
                 }
+            }
 
             for (Action action: simulation.getActionsList()) {
                 Log.info("  --- Checking the values for Action Number: " + action.getActionNumber() + " - " + action.getTitle());
@@ -434,7 +435,6 @@ public class GeneralMethods extends BaseTest {
                             break;
                     }
                 }
-            }
             }
             Assert.assertTrue(mainPage.complexCompareLists(walletTitlesList, simulationPage.getWalletTitlesList()),
                     "ERROR: The configured Simulations have different names than expected");

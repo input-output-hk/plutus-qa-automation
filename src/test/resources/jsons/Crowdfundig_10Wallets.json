@@ -7,52 +7,62 @@
           {
             "title": "Wallet #1",
             "currency": "ADA",
-            "balance": 45
+            "balance": 45,
+            "finalBalance": 45
           },
           {
             "title": "Wallet #2",
             "currency": "ADA",
-            "balance": 50
+            "balance": 50,
+            "finalBalance": 45
           },
           {
             "title": "Wallet #3",
             "currency": "ADA",
-            "balance": 65
+            "balance": 65,
+            "finalBalance": 45
           },
           {
             "title": "Wallet #4",
             "currency": "ADA",
-            "balance": 95
+            "balance": 95,
+            "finalBalance": 45
           },
           {
             "title": "Wallet #5",
             "currency": "ADA",
-            "balance": 67
+            "balance": 67,
+            "finalBalance": 45
           },
           {
             "title": "Wallet #6",
             "currency": "ADA",
-            "balance": 22
+            "balance": 22,
+            "finalBalance": 45
           },
           {
             "title": "Wallet #7",
             "currency": "ADA",
-            "balance": 24
+            "balance": 24,
+            "finalBalance": 45
           },
           {
             "title": "Wallet #8",
             "currency": "ADA",
-            "balance": 769
+            "balance": 769,
+            "finalBalance": 45
           },
           {
             "title": "Wallet #9",
             "currency": "ADA",
-            "balance": 41
+            "balance": 41,
+            "finalBalance": 45
           },
           {
             "title": "Wallet #1.",
             "currency": "ADA",
-            "balance": 150
+            "balance": 150,
+            "finalBalance": 45
           }
         ],
         "actions": [

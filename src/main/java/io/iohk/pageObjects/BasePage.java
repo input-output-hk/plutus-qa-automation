@@ -230,6 +230,15 @@ public class BasePage {
 		action.contextClick(webElement).perform();
 	}
 
+	/** Method to hover on specified WebElement	 */
+	protected void hoverElement(WebElement webElement) {
+		Log.debug("Hover on element: " + webElement);
+		scrollToElement(webElement);
+		waitForElementToBeVisible(webElement, DEFAULT_WAIT_ELEMENT_TIMEOUT);
+		Actions action = new Actions(driver);
+		action.moveToElement(webElement).build().perform();
+	}
+
 	/** Method to select Drop Down value based on visible text	 */
 	public void selectDpdValueByVisibleText(WebElement dropDownElement, String visibleText) {
 		waitForElementToBeVisible(dropDownElement, DEFAULT_WAIT_ELEMENT_TIMEOUT);

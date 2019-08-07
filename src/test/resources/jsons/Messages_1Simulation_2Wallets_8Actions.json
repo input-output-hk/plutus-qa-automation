@@ -8,6 +8,7 @@
             "title": "Wallet #1",
             "currency": "ADA",
             "balance": 1111,
+            "finalBalance": 45,
             "availableFunctions": [
               "logAMessage",
               "submitInvalidTxn",

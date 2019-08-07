@@ -8,6 +8,7 @@
             "title": "Wallet #1",
             "currency": "ADA",
             "balance": 11,
+            "finalBalance": 45,
             "availableFunctions": [
               "vestFunds",
               "registerVestingScheme",

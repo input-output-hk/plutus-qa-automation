@@ -26,7 +26,7 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//button[@id='publish-gist']")
     private WebElement btnPublishGist;
 
-    @FindBy(xpath = "//button[@id='publish-gist']//i[contains(@class,'fa-spinner')]\"")
+    @FindBy(xpath = "//button[@id='publish-gist']/i[contains(@class,'fa-spinner')]")
     private WebElement btnPublishGistSpinner;
 
     @FindBy(xpath = "//button[@id='load-gist']")
@@ -46,7 +46,6 @@ public class MainPage extends BasePage {
 
     @FindBy(xpath = "//a[@id='tab-transactions']")
     private WebElement btnTransactions;
-
 
     public MainPage(WebDriver driver) {
         this.driver = driver;

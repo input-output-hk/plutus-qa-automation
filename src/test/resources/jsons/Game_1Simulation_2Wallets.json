@@ -7,12 +7,14 @@
           {
             "title": "Wallet #1",
             "currency": "ADA",
-            "balance": 11
+            "balance": 11,
+            "finalBalance": 14
           },
           {
             "title": "Wallet #2",
             "currency": "ADA",
-            "balance": 4
+            "balance": 4,
+            "finalBalance": 1
           }
         ],
         "actions": [

@@ -147,24 +147,35 @@ public class ContractProvider{
     private static List<Action> readListOfActionsFromJson(ArrayNode actionsNode) {
         Log.info(" Reading List of Action values from JSON file...");
         List<Action> actionsList = new ArrayList<>();
+
+
         for (JsonNode actionNode : actionsNode) {
-            Action action = new Action();
-            action.setTitle(actionNode.get("title").asText());
-            if (!action.getTitle().contains("wait")) {
-                action.setWalletNumber(actionNode.get("walletNo").asInt());
+            int addMultipleTimes = 1;
+            // as default the action will be added only 1 time
+            // if "addMultipleTimes" parameter is present inside the action json, the action will be created by that number of times
+            if (actionNode.hasNonNull("addMultipleTimes")) {
+                addMultipleTimes = actionNode.get("addMultipleTimes").asInt();
             }
 
-            if (actionNode.has("expectedError")) {
-                action.setExpectedError(actionNode.get("expectedError").asText());
-            }
+            for (int i = 1; i <= addMultipleTimes; i++) {
+                Action action = new Action();
+                action.setTitle(actionNode.get("title").asText());
+                if (!action.getTitle().contains("wait")) {
+                    action.setWalletNumber(actionNode.get("walletNo").asInt());
+                }
 
-            JsonNode actionParametersNode = actionNode.path("parameters");
-            if (actionParametersNode != null) {
-                action.setActionParametersList(readListOfActionParametersFromJson(actionParametersNode));
-            } else {
-                Log.warn("WARNING: Action parameters node is not Array or it is null (it can be ok) - " + actionParametersNode);
+                if (actionNode.has("expectedError")) {
+                    action.setExpectedError(actionNode.get("expectedError").asText());
+                }
+
+                JsonNode actionParametersNode = actionNode.path("parameters");
+                if (actionParametersNode != null) {
+                    action.setActionParametersList(readListOfActionParametersFromJson(actionParametersNode));
+                } else {
+                    Log.warn("WARNING: Action parameters node is not Array or it is null (it can be ok) - " + actionParametersNode);
+                }
+                actionsList.add(action);
             }
-            actionsList.add(action);
         }
         return actionsList;
     }

@@ -9,6 +9,7 @@
             "title": "Wallet #1",
             "currency": "ADA",
             "balance": 5,
+            "finalBalance": 45,
             "actions": [
               {
                 "title": "scheduleCollection",
@@ -105,6 +106,7 @@
 			"addMultipleTimes": 14,
             "currency": "ADA",
             "balance": 50,
+            "finalBalance": 45,
             "actions": [
               {
                 "title": "scheduleCollection",

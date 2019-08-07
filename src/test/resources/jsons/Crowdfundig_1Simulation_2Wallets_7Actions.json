@@ -8,6 +8,7 @@
             "title": "Wallet #1",
             "currency": "ADA",
             "balance": 1555,
+            "finalBalance": 45,
             "availableFunctions": [
               "scheduleCollection",
               "contribute",
@@ -18,6 +19,7 @@
             "title": "Wallet #2",
             "currency": "ADA",
             "balance": 50,
+            "finalBalance": 45,
             "availableFunctions": [
               "scheduleCollection",
               "contribute",

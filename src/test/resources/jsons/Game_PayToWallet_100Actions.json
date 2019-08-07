@@ -1,0 +1,57 @@
+{
+  "game":  {
+    "simulations": [
+      {
+        "title": "Simulation #1",
+        "wallets": [
+          {
+            "title": "Wallet #1",
+            "currency": "ADA",
+            "balance": 1000,
+            "finalBalance": 1300
+          },
+          {
+            "title": "Wallet #2",
+            "currency": "ADA",
+            "balance": 1500,
+            "finalBalance": 1200
+          }
+        ],
+        "actions": [
+          {
+            "addMultipleTimes": 100,
+            "walletNo": 1,
+            "title": "payToWallet_",
+            "parameters": {
+              "ivFrom": {
+                "value": 5,
+                "type": "basic"
+              },
+              "ivTo": {
+                "value": 29,
+                "type": "basic"
+              },
+              "Value": {
+                "value": 3,
+                "type": "basic"
+              },
+              "getWallet": {
+                "value": 2,
+                "type": "basic"
+              }
+            }
+          },
+          {
+            "title": "waitAction",
+            "parameters": {
+              "Time": {
+                "value": 30,
+                "type": "wait"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

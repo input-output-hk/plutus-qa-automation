@@ -19,7 +19,7 @@ Technologies used: Java, TestNG, Selenium, Maven, Log4j.
     - All the script logs for the last run can be found in "**logs**" directory.
     
 - **_Creating input JSONs considerations_**:
-    - when creating a new json (as input for a script), use an existing one as model
+    - when creating a new json (to be used as input for a script), use an existing one as model
     - each json should have these nodes/levels: 
         - contract
         - listOfSimulations 

@@ -4,6 +4,7 @@ import io.iohk.dataModels.Contract;
 import io.iohk.dataProviders.ContractProvider;
 import io.iohk.frontEndTests.GeneralMethods;
 import io.iohk.utils.DriverManager;
+import io.iohk.utils.Log;
 import io.iohk.utils.listeners.AnnotationTransformer;
 import io.iohk.utils.listeners.ScreenshotListener;
 import io.iohk.utils.listeners.TestListener;
@@ -17,8 +18,15 @@ public class EvaluateContractsTest extends GeneralMethods {
 //                { "/jsons/Game_1Simulation_2Wallets.json"},
 //                { "/jsons/Crowdfundig_3Wallets.json"},
 //                { "/jsons/Crowdfundig_10Wallets.json"},
-                {"/jsons/Crowdfundig_PayToWallet_3Simulations.json"}
+                {"/jsons/Crowdfundig_PayToWallet_3Simulations.json"},
+//                {"/jsons/Game_PayToWallet_100Actions.json"}
         };
+    }
+
+    @BeforeMethod
+    public void githubLogin() {
+        Log.debug("Sign In to Github using the header button/option");
+        signInToGithub();
     }
 
     @Test(dataProvider = "dataProviderScenarios")
@@ -39,6 +47,9 @@ public class EvaluateContractsTest extends GeneralMethods {
     @AfterMethod
     public void cleanUp() {
         mainPage.closeSecondaryTabs();
+
+        Log.debug("Save the scenario as a github gist");
+        String gistId = publishGist();
     }
 
     @AfterClass

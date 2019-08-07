@@ -34,7 +34,7 @@ public class GistGitLoginBeforeTest extends GeneralMethods {
 
         Contract contract = ContractProvider.readContractFromJson(dataSource);
 
-        Log.debug("1. Sign In to Github button using the header button/option");
+        Log.debug("1. Sign In to Github using the header button/option");
         signInToGithub();
 
         Log.debug(" 2. Create and Evauate the scenarios from each provided JSON files");
